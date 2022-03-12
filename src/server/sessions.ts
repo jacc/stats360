@@ -44,7 +44,16 @@ export class SessionManager<T> {
 			throw new NextkitError(401, 'You are not signed in');
 		}
 
-		return this.get(token);
+		const session = await this.get(token);
+
+		if (!session) {
+			throw new NextkitError(
+				403,
+				'You have been signed out! Please login again.',
+			);
+		}
+
+		return session;
 	}
 
 	async get(token: string) {
