@@ -95,7 +95,9 @@ export class Life360API {
 	 * Gets all circles
 	 */
 	async getCircles() {
-		return this.request<Life360Circle[]>('circles');
+		return this.request<{circles: Life360Circle[]}>('circles').then(
+			res => res.circles,
+		);
 	}
 
 	/**

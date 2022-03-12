@@ -3,7 +3,6 @@ import Image from 'next/image';
 
 export default function DashboardPage() {
 	const {data: user} = useUser();
-	console.log(user);
 
 	return (
 		<main className="mx-auto max-w-3xl py-24 space-y-6">
