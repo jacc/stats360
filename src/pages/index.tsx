@@ -1,5 +1,3 @@
-import 'tailwindcss/tailwind.css';
-
 export default function Home() {
 	return (
 		<main className="mx-auto max-w-3xl py-24 space-y-6">
@@ -9,12 +7,9 @@ export default function Home() {
 					Stats360 is a website to view Life360 Circle statistics. Please login
 					below.
 				</div>
-				<br></br>
+
 				<div>
-					<input
-						className="rounded-lg bg-white p-6 border border-neutral-200 border-2 text-black"
-						defaultValue="Login"
-					/>
+					<input defaultValue="Login" />
 				</div>
 			</div>
 		</main>

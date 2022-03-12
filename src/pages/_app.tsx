@@ -3,9 +3,9 @@ import {AppProps} from 'next/app';
 import {SWRConfig} from 'swr';
 import {fetcher} from '../client/fetcher';
 
+import '@fontsource/plus-jakarta-sans';
 import 'tailwindcss/tailwind.css';
 import '../styles/index.css';
-import '@fontsource/plus-jakarta-sans';
 
 export default function App({Component, pageProps}: AppProps) {
 	return (
