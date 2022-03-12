@@ -1,13 +1,13 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import Life360Logo from '../client/assets/life360-logo.png';
+import Stats360 from '../client/assets/stats360.png';
 
 export default function Home() {
 	return (
 		<main className="mx-auto max-w-3xl py-24 space-y-6">
 			<form className="rounded-xl bg-white dark:bg-gray-800 p-12 space-y-6 shadow-sm dark:shadow-neutral-800/25 font-light border border-gray-300 dark:border-gray-700">
 				<div className="flex items-center space-x-3">
-					<Image src={Life360Logo} height={48} width={48} alt="Life 360 Logo" />
+					<Image src={Stats360} height={48} width={48} alt="Life 360 Logo" />
 					<h1 className=" font-medium text-2xl">Welcome to Stats360</h1>
 				</div>
 
