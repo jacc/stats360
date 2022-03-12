@@ -20,13 +20,13 @@ export default function Home() {
 					<input
 						type="text"
 						className="w-full inline-block border px-3 py-3 rounded-lg dark:bg-gray-900/50 dark:border-gray-800"
-						placeholder="Email or phone"
+						placeholder="Life360 account email"
 					/>
 
 					<input
 						type="password"
 						className="w-full inline-block border px-3 py-3 rounded-lg dark:bg-gray-900/50 dark:border-gray-800"
-						placeholder="Password"
+						placeholder="Life360 account password"
 					/>
 				</div>
 
