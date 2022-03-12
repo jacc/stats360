@@ -7,6 +7,8 @@ export default function CirclePage() {
 
 	const {data: circle} = useCircle((router.query.circle as string) ?? null);
 
+	console.log(circle);
+
 	return (
 		<main className="mx-auto max-w-3xl py-24 space-y-6">
 			<div className="rounded-xl bg-white dark:bg-gray-800 p-12 space-y-6 shadow-sm dark:shadow-neutral-800/25 font-light border border-gray-300 dark:border-gray-700">
@@ -19,11 +21,13 @@ export default function CirclePage() {
 					<div>
 						<div>Members</div>
 						<div className="rounded-xl bg-white dark:bg-gray-800 p-4 space-y-6 shadow-sm dark:shadow-neutral-800/25 font-light border border-gray-300 dark:border-gray-700">
-							{circle
-								? circle.members.map(member => {
+							<ul>
+								{circle?.members
+									.filter(member => member.issues.disconnected == 0)
+									.map(member => {
 										return <li>{member.firstName}</li>;
-								  })
-								: 'Loading...'}
+									})}
+							</ul>
 						</div>
 					</div>
 				</div>

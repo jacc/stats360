@@ -23,7 +23,7 @@ export interface Life360CircleFeatures {
 
 export interface Life360CircleMember {
 	features: any[];
-	issues: any[];
+	issues: any;
 	location?: any[];
 	communications: any[];
 	medical: any;
