@@ -2484,14 +2484,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nextkit@npm:^3.0.4":
-  version: 3.0.4
-  resolution: "nextkit@npm:3.0.4"
+"nextkit@npm:^3.1.0":
+  version: 3.1.0
+  resolution: "nextkit@npm:3.1.0"
   dependencies:
-    urlcat: ^2.0.4
+    alistair: ^1.4.0
   peerDependencies:
     next: "*"
-  checksum: b76e80456ca4bde146f422275b310030dd794e710628188c5d8c4529abc57a1bbbed365fe77f01243500dc5d303b95ef6e3bd9c760a5e8400d998a5c8f00ef88
+  checksum: d5c214b6c81029acd7728c9521522c0eb137be6a46a0f94d373f025f1186d3c5a7ed67eb58177ebfa2e58f1de163e6fdba756f41479e1fb08ceed4703fc557e4
   languageName: node
   linkType: hard
 
@@ -3225,7 +3225,7 @@ __metadata:
     eslint-config-xo-typescript: ^0.50.0
     eslint-plugin-react-hooks: ^4.3.0
     next: ^12.1.0
-    nextkit: ^3.0.4
+    nextkit: ^3.1.0
     postcss: ^8.4.8
     prettier: ^2.5.1
     react: 17.0.2
