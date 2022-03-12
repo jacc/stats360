@@ -1,6 +1,5 @@
 import {useRouter} from 'next/router';
 import {useCircle} from '../../../client/hooks/circles/[id]';
-import circles from '../../api/users/@me/circles';
 
 export default function CirclePage() {
 	const router = useRouter();
@@ -13,10 +12,11 @@ export default function CirclePage() {
 		<main className="mx-auto max-w-3xl py-24 space-y-6">
 			<div className="rounded-xl bg-white dark:bg-gray-800 p-12 space-y-6 shadow-sm dark:shadow-neutral-800/25 font-light border border-gray-300 dark:border-gray-700">
 				<div className="flex items-center space-x-3">
-					<h1 className=" font-medium text-2xl">
+					<h1 className="font-medium text-2xl">
 						{circle?.name}'s Life360 Stats
 					</h1>
 				</div>
+
 				<div className="grid grid-cols-1 auto-cols-max md:grid-cols-2 gap-3">
 					<div>
 						<div>Members</div>
