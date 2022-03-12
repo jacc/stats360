@@ -1,5 +1,5 @@
-import {api} from '../../../server/api';
-import {Life360API} from '../../../server/utils/life360';
+import {api} from '../../../../server/api';
+import {Life360API} from '../../../../server/utils/life360';
 
 export default api({
 	async GET({ctx, req}) {

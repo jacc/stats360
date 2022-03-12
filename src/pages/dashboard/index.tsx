@@ -1,7 +1,8 @@
-import {useUser} from '../client/hooks/account/@me';
+import {useUser} from '../../client/hooks/users/@me';
 import Image from 'next/image';
-import {useMyCircles} from '../client/hooks/account/circles';
+import {useMyCircles} from '../../client/hooks/account/circles';
 import {MdPeopleAlt} from 'react-icons/md';
+import Link from 'next/link';
 
 export default function DashboardPage() {
 	const {data: user} = useUser();
@@ -38,18 +39,17 @@ export default function DashboardPage() {
 					{circles ? (
 						circles.length > 0 ? (
 							circles.map(circle => (
-								<a
-									key={circle.id}
-									className="hover:bg-pink-500/5 hover:text-pink-500 hover:border-pink-500/25 dark:hover:bg-pink-900/10 transition-all duration-150 group w-full flex justify-between border px-3 py-3 rounded-lg dark:bg-gray-900/50 dark:border-gray-800"
-								>
-									<p>{circle.name}</p>
+								<Link key={circle.id} href={`/dashboard/${circle.id}`}>
+									<a className="hover:bg-pink-500/5 hover:text-pink-500 hover:border-pink-500/25 dark:hover:bg-pink-900/10 transition-all duration-150 group w-full flex justify-between border px-3 py-3 rounded-lg dark:bg-gray-900/50 dark:border-gray-800">
+										<p>{circle.name}</p>
 
-									<p className="text-gray-600 dark:text-gray-400 group-hover:text-pink-400">
-										<MdPeopleAlt className="inline -mt-1" />
-										&nbsp;
-										<span>{circle.memberCount}</span>
-									</p>
-								</a>
+										<p className="text-gray-600 dark:text-gray-400 group-hover:text-pink-400">
+											<MdPeopleAlt className="inline -mt-1" />
+											&nbsp;
+											<span>{circle.memberCount}</span>
+										</p>
+									</a>
+								</Link>
 							))
 						) : (
 							<p>No circles!</p>

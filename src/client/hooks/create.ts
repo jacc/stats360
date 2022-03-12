@@ -1,13 +1,13 @@
 import useSWR from 'swr';
 import {InferAPIResponse} from 'nextkit';
-import {NextkitClientException} from 'nextkit/client';
+import {NextkitClientError} from 'nextkit/client';
 
-export type URLGetter<Args extends string[]> = (
+export type URLGetter<Args extends Array<string | null>> = (
 	...args: Args
-) => `/api/${string}`;
+) => `/api/${string}` | null;
 
 export function endpoint<T>() {
 	return <Args extends string[]>(url: URLGetter<Args>) =>
 		(...args: Args) =>
-			useSWR<InferAPIResponse<T, 'GET'>, NextkitClientException>(url(...args));
+			useSWR<InferAPIResponse<T, 'GET'>, NextkitClientError>(url(...args));
 }

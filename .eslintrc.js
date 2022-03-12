@@ -39,5 +39,6 @@ module.exports = {
 		'react/jsx-curly-newline': 'off',
 		'@typescript-eslint/indent': 'off',
 		'@typescript-eslint/class-literal-property-style': 'off',
+		'@typescript-eslint/ban-types': 'off',
 	},
 };
