@@ -1,8 +1,10 @@
 import {useUser} from '../client/hooks/account/@me';
 import Image from 'next/image';
+import {useMyCircles} from '../client/hooks/account/circles';
 
 export default function DashboardPage() {
 	const {data: user} = useUser();
+	const {data: circles} = useMyCircles();
 
 	return (
 		<main className="mx-auto max-w-3xl py-24 space-y-6">
@@ -31,14 +33,23 @@ export default function DashboardPage() {
 					Select a circle below
 				</h2>
 
-				<div className="md:w-1/2 space-y-2">
-					<div className="w-full inline-block border px-3 py-3 rounded-lg dark:bg-gray-900/50 dark:border-gray-800">
-						aaa
-					</div>
-
-					<div className="w-full inline-block border px-3 py-3 rounded-lg dark:bg-gray-900/50 dark:border-gray-800">
-						aaa
-					</div>
+				<div className="grid gap-2 grid-cols-2">
+					{circles ? (
+						circles.length > 0 ? (
+							circles.map(circle => (
+								<p
+									key={circle.id}
+									className="w-full inline-block border px-3 py-3 rounded-lg dark:bg-gray-900/50 dark:border-gray-800"
+								>
+									{circle.name}
+								</p>
+							))
+						) : (
+							<p>No circles!</p>
+						)
+					) : (
+						<p>Loading...</p>
+					)}
 				</div>
 			</form>
 		</main>

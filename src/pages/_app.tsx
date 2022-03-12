@@ -2,11 +2,11 @@ import React from 'react';
 import {AppProps} from 'next/app';
 import {SWRConfig} from 'swr';
 import {fetcher} from '../client/fetcher';
+import Head from 'next/head';
 
 import '@fontsource/plus-jakarta-sans';
 import 'tailwindcss/tailwind.css';
 import '../styles/index.css';
-import Head from 'next/head';
 
 export default function App({Component, pageProps}: AppProps) {
 	return (
