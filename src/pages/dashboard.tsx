@@ -33,7 +33,7 @@ export default function DashboardPage() {
 					Select a circle below
 				</h2>
 
-				<div className="grid gap-2 grid-cols-2">
+				<div className="grid grid-cols-1 auto-cols-max md:grid-cols-2 gap-3">
 					{circles ? (
 						circles.length > 0 ? (
 							circles.map(circle => (
