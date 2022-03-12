@@ -32,7 +32,7 @@ export default function Home() {
 
 				<div>
 					<button
-						className="px-7 py-1.5 rounded-full bg-green-500/25 text-green-600 dark:text-green-500"
+						className="px-7 py-1.5 rounded-full bg-pink-500/25 text-pink-600 dark:text-pink-500"
 						type="submit"
 					>
 						Login
