@@ -12,8 +12,8 @@ export default function Home() {
 				</div>
 
 				<h2 className="font-light text-lg text-gray-500">
-					Stats360 is a website to view Life360 Circle statistics. Please login
-					below.
+					Stats360 allows you to view data about your Life360 circles. To get
+					started, login with your Life360 below.
 				</h2>
 
 				<div className="w-1/2 space-y-2">
