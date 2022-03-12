@@ -7,6 +7,7 @@ import {Life360API} from './utils/life360';
 interface Session {
 	life360: {
 		access_token: string;
+		user_id: string;
 	};
 }
 
@@ -23,9 +24,34 @@ export const api = createAPI({
 	async getContext() {
 		const sessions = new SessionManager<Session>();
 
+		const redis = getRedis();
+
 		return {
 			sessions,
-			redis: getRedis(),
+			redis,
+
+			async cache<T>(
+				key: string,
+				fn: () => Promise<T>,
+				seconds = 1 * 60 * 60,
+			): Promise<T> {
+				const cached = await redis.get<T>(key);
+
+				if (cached) {
+					return cached;
+				}
+
+				const recent = await fn();
+
+				if (recent) {
+					await redis.set(key, recent, {
+						ex: seconds,
+					});
+				}
+
+				return recent;
+			},
+
 			async getLife360(req: NextApiRequest) {
 				const session = await sessions.from(req);
 				return new Life360API(session.life360.access_token);

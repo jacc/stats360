@@ -26,6 +26,7 @@ export default api({
 		const token = await ctx.sessions.generate({
 			life360: {
 				access_token: api.getAccessToken(),
+				user_id: (await api.getSelf()).id,
 			},
 		});
 
