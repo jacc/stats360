@@ -7,7 +7,13 @@ export default api({
 		const session = await ctx.sessions.from(req).catch(() => null);
 
 		if (session) {
-			return;
+			if (req.headers['content-type'] === 'application/json') {
+				return;
+			}
+
+			return {
+				_redirect: '/dashboard',
+			};
 		}
 
 		const body = loginSchema.parse(req.body);
@@ -24,5 +30,13 @@ export default api({
 		});
 
 		res.setHeader('Set-Cookie', ctx.sessions.getCookie(token));
+
+		if (req.headers['content-type'] === 'application/json') {
+			return;
+		}
+
+		return {
+			_redirect: '/dashboard',
+		};
 	},
 });
