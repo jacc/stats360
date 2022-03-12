@@ -8,7 +8,7 @@ export default function Home() {
 			<form className="rounded-xl bg-white dark:bg-gray-800 p-12 space-y-6 shadow-sm dark:shadow-neutral-800/25 font-light border border-gray-300 dark:border-gray-700">
 				<div className="flex items-center space-x-3">
 					<Image src={Life360Logo} height={48} width={48} alt="Life 360 Logo" />
-					<h1 className="font-bold text-2xl">Welcome to Stats360</h1>
+					<h1 className="font-semibold text-2xl">Welcome to Stats360</h1>
 				</div>
 
 				<h2 className="font-light text-lg text-gray-500">
@@ -19,13 +19,13 @@ export default function Home() {
 				<div className="w-1/2 space-y-2">
 					<input
 						type="text"
-						className="w-full inline-block border px-2 py-3 rounded-md dark:bg-gray-900/50 dark:border-gray-800"
+						className="w-full inline-block border px-2 py-3 rounded-lg dark:bg-gray-900/50 dark:border-gray-800"
 						placeholder="Email or phone"
 					/>
 
 					<input
 						type="password"
-						className="w-full inline-block border px-2 py-3 rounded-md dark:bg-gray-900/50 dark:border-gray-800"
+						className="w-full inline-block border px-2 py-3 rounded-lg dark:bg-gray-900/50 dark:border-gray-800"
 						placeholder="Password"
 					/>
 				</div>
