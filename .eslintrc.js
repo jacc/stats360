@@ -38,5 +38,6 @@ module.exports = {
 		'@typescript-eslint/quotes': 'off',
 		'react/jsx-curly-newline': 'off',
 		'@typescript-eslint/indent': 'off',
+		'@typescript-eslint/class-literal-property-style': 'off',
 	},
 };
