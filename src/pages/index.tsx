@@ -16,7 +16,7 @@ export default function Home() {
 					started, login with your Life360 below.
 				</h2>
 
-				<div className="w-1/2 space-y-2">
+				<div className="md:w-1/2 space-y-2">
 					<input
 						type="text"
 						className="w-full inline-block border px-3 py-3 rounded-lg dark:bg-gray-900/50 dark:border-gray-800"
