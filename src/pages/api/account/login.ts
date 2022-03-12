@@ -1,6 +1,6 @@
 import {loginSchema} from '../../../schemas/login';
 import {api} from '../../../server/api';
-import {Life360API} from '../../../server/utils/login';
+import {Life360API} from '../../../server/utils/life360';
 
 export default api({
 	async POST({req, res, ctx}) {

@@ -2,7 +2,7 @@ import {NextApiRequest} from 'next';
 import createAPI from 'nextkit';
 import {getRedis} from './redis';
 import {SessionManager} from './sessions';
-import {Life360API} from './utils/login';
+import {Life360API} from './utils/life360';
 
 interface Session {
 	life360: {
@@ -12,6 +12,8 @@ interface Session {
 
 export const api = createAPI({
 	async onError(req, res, error) {
+		console.warn(error);
+
 		return {
 			status: 500,
 			message: error.message,

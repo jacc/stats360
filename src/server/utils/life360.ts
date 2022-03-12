@@ -8,6 +8,29 @@ import {Life360UserTrip} from './types/trip.types';
 import {Credentials, Life360SelfUser, Life360User} from './types/users.types';
 import urlcat from 'urlcat';
 
+interface Life360ErrorResponse {
+	errorMessage: string;
+	status: number;
+	url: string;
+}
+
+class Life360Error extends Error {
+	public static isError<T>(
+		response: Response,
+		body: T | Life360ErrorResponse,
+	): body is Life360ErrorResponse {
+		return response.status >= 400 && 'errorMessage' in body;
+	}
+
+	constructor(
+		public readonly code: number,
+		public readonly path: string,
+		message: string,
+	) {
+		super(message);
+	}
+}
+
 export class Life360API {
 	public static async login(credentials: Credentials) {
 		const udid = AppleUtils.randomUDID();
@@ -59,14 +82,20 @@ export class Life360API {
 	 * @returns The user's self data
 	 */
 	async getSelf() {
-		return this.get<Life360SelfUser>('users');
+		return this.request<Life360SelfUser>('users', {
+			method: 'PUT',
+			body: 'settings%5BdateFormat%5D=dmy24&settings%5Blocale%5D=en_GB&settings%5BtimeZone%5D=Europe/London',
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded',
+			},
+		});
 	}
 
 	/**
 	 * Gets all circles
 	 */
 	async getCircles() {
-		return this.get<Life360Circle[]>('circles');
+		return this.request<Life360Circle[]>('circles');
 	}
 
 	/**
@@ -74,7 +103,7 @@ export class Life360API {
 	 * @param circleId The ID of the circle
 	 */
 	async getCircle(circleId: string) {
-		return this.get<Life360Circle>(`circles/${circleId}`);
+		return this.request<Life360Circle>(`circles/${circleId}`);
 	}
 
 	/**
@@ -82,7 +111,7 @@ export class Life360API {
 	 * @param circleId The ID of the circle
 	 */
 	async getCirclePlaces(circleId: string) {
-		return this.get<Life360CirclePlace[]>(`circles/${circleId}/allplaces`);
+		return this.request<Life360CirclePlace[]>(`circles/${circleId}/allplaces`);
 	}
 
 	/**
@@ -90,7 +119,7 @@ export class Life360API {
 	 * @param circleId The ID of the circle
 	 */
 	async getCircleHistory(circleId: string) {
-		return this.get<Life360CircleLocation[]>(
+		return this.request<Life360CircleLocation[]>(
 			`circles/${circleId}/members/history`,
 		);
 	}
@@ -100,7 +129,7 @@ export class Life360API {
 	 * @param circleId The ID of the circle
 	 */
 	async getUsers(circleId: string) {
-		return this.get<Life360User>(`circles/${circleId}/members`);
+		return this.request<Life360User>(`circles/${circleId}/members`);
 	}
 
 	/**
@@ -109,7 +138,7 @@ export class Life360API {
 	 * @param userId The ID of the user
 	 */
 	async getUser(circleId: string, userId: string) {
-		return this.get<Life360User>(`circles/${circleId}/members/${userId}`);
+		return this.request<Life360User>(`circles/${circleId}/members/${userId}`);
 	}
 
 	/**
@@ -118,7 +147,7 @@ export class Life360API {
 	 * @param userId The ID of the user
 	 */
 	async getUserTrips(circleId: string, userId: string) {
-		return this.get<Life360UserTrip[]>(
+		return this.request<Life360UserTrip[]>(
 			`circles/${circleId}/users/${userId}/driverbehavior/trips`,
 		);
 	}
@@ -130,27 +159,40 @@ export class Life360API {
 	 * @param tripId The ID of the trip
 	 */
 	async getUserTrip(circleId: string, userId: string, tripId: string) {
-		return this.get<Life360UserTrip>(
+		return this.request<Life360UserTrip>(
 			`circles/${circleId}/users/${userId}/driverbehavior/trips/${tripId}`,
 		);
 	}
 
 	async getPremiumStatus(circleId: string) {
-		return this.get<Life360Premium>(`users/premium?circleId=${circleId}`);
+		return this.request<Life360Premium>(`users/premium?circleId=${circleId}`);
 	}
 
 	/**
 	 * Internal function to get data from the API
 	 * @param path The path to query
 	 */
-	protected async get<T>(path: string, init?: RequestInit): Promise<T> {
-		return fetch(urlcat('https://api-cloudfront.life360.com/v3', path), {
-			...init,
-			headers: {
-				...Life360API.getHeaders(this.udid),
-				...init?.headers,
-				Authorization: `Bearer ${this.token}`,
+	protected async request<T>(path: string, init?: RequestInit): Promise<T> {
+		const res = await fetch(
+			urlcat('https://api-cloudfront.life360.com/v3', path),
+			{
+				...init,
+				headers: {
+					...Life360API.getHeaders(this.udid),
+					...init?.headers,
+					Authorization: `Bearer ${this.token}`,
+				},
 			},
-		}).then(async res => res.json() as Promise<T>);
+		);
+
+		const body = (await res.json()) as
+			| T
+			| {errorMessage: string; status: number; url: string};
+
+		if (Life360Error.isError(res, body)) {
+			throw new Life360Error(body.status, body.errorMessage, body.url);
+		}
+
+		return body;
 	}
 }
