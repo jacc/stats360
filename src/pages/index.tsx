@@ -8,7 +8,7 @@ export default function Home() {
 			<form className="rounded-xl bg-white dark:bg-gray-800 p-12 space-y-6 shadow-sm dark:shadow-neutral-800/25 font-light border border-gray-300 dark:border-gray-700">
 				<div className="flex items-center space-x-3">
 					<Image src={Life360Logo} height={48} width={48} alt="Life 360 Logo" />
-					<h1 className="font-semibold text-2xl">Welcome to Stats360</h1>
+					<h1 className=" font-medium text-2xl">Welcome to Stats360</h1>
 				</div>
 
 				<h2 className="font-light text-lg text-gray-500">
