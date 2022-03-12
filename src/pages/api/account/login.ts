@@ -1,5 +1,6 @@
 import {loginSchema} from '../../../schemas/login';
 import {api} from '../../../server/api';
+import {Life360API} from '../../../server/utils/login';
 
 export default api({
 	async POST({req, res, ctx}) {
@@ -11,11 +12,14 @@ export default api({
 
 		const body = loginSchema.parse(req.body);
 
-		const api = API.from(body);
+		const api = await Life360API.login({
+			username: body.email,
+			password: body.password,
+		});
 
 		const token = await ctx.sessions.generate({
 			life360: {
-				access_token: '',
+				access_token: api.getAccessToken(),
 			},
 		});
 

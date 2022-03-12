@@ -1,6 +1,8 @@
+import {NextApiRequest} from 'next';
 import createAPI from 'nextkit';
 import {getRedis} from './redis';
 import {SessionManager} from './sessions';
+import {Life360API} from './utils/login';
 
 interface Session {
 	life360: {
@@ -17,9 +19,15 @@ export const api = createAPI({
 	},
 
 	async getContext() {
+		const sessions = new SessionManager<Session>();
+
 		return {
-			sessions: new SessionManager<Session>(),
+			sessions,
 			redis: getRedis(),
+			async getLife360(req: NextApiRequest) {
+				const session = await sessions.from(req);
+				return new Life360API(session.life360.access_token);
+			},
 		};
 	},
 });
