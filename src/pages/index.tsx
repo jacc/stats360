@@ -42,7 +42,7 @@ export default function Home() {
 				<div>
 					<Link href="/why">
 						<a className="text-xs inline-block text-pink-500 dark:text-gray-500">
-							Why do we need this?
+							Why and how do we use your Life360 login?
 						</a>
 					</Link>
 				</div>
