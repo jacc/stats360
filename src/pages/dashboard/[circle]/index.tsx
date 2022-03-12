@@ -1,12 +1,11 @@
 import {useRouter} from 'next/router';
 import {useCircle} from '../../../client/hooks/circles/[id]';
+import Image from 'next/image';
 
 export default function CirclePage() {
 	const router = useRouter();
 
 	const {data: circle} = useCircle((router.query.circle as string) ?? null);
-
-	console.log(circle);
 
 	return (
 		<main className="mx-auto max-w-3xl py-24 space-y-6">
@@ -17,18 +16,35 @@ export default function CirclePage() {
 					</h1>
 				</div>
 
-				<div className="grid grid-cols-1 auto-cols-max md:grid-cols-2 gap-3">
-					<div>
-						<div>Members</div>
-						<div className="rounded-xl bg-white dark:bg-gray-800 p-4 space-y-6 shadow-sm dark:shadow-neutral-800/25 font-light border border-gray-300 dark:border-gray-700">
-							<ul>
-								{circle?.members
-									.filter(member => member.issues.disconnected == 0)
-									.map(member => (
-										<li key={member.id}>{member.firstName}</li>
-									))}
-							</ul>
-						</div>
+				<div className="space-y-4">
+					<div>Members</div>
+
+					<div className="rounded-xl bg-white dark:bg-gray-800 p-4 space-y-6 shadow-sm dark:shadow-neutral-800/25 font-light border border-gray-300 dark:border-gray-700">
+						<ul className="grid grid-cols-2 gap-4">
+							{circle?.members
+								.filter(member => member.issues.disconnected === '0')
+								.map(member => (
+									<li key={member.id}>
+										<div className="flex items-center space-x-3 bg-gray-100">
+											<div className="flex-shrink-0 flex items-center">
+												{member.avatar && (
+													<Image
+														src={member.avatar}
+														alt={member.firstName}
+														height={24}
+														width={24}
+														className="object-cover rounded-full"
+													/>
+												)}
+											</div>
+
+											<div className="flex-grow">
+												<div className="font-medium">{member.firstName}</div>
+											</div>
+										</div>
+									</li>
+								))}
+						</ul>
 					</div>
 				</div>
 
