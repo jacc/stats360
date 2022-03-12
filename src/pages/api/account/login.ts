@@ -1,3 +1,4 @@
+import {loginSchema} from '../../../schemas/login';
 import {api} from '../../../server/api';
 
 export default api({
@@ -8,7 +9,9 @@ export default api({
 			return;
 		}
 
-		// TODO: Get access token
+		const body = loginSchema.parse(req.body);
+
+		const api = API.from(body);
 
 		const token = await ctx.sessions.generate({
 			life360: {
