@@ -40,5 +40,7 @@ module.exports = {
 		'@typescript-eslint/indent': 'off',
 		'@typescript-eslint/class-literal-property-style': 'off',
 		'@typescript-eslint/ban-types': 'off',
+		'react/jsx-indent': 'off',
+		'no-mixed-spaces-and-tabs': 'off',
 	},
 };
