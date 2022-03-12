@@ -15,6 +15,7 @@ export default function DashboardPage() {
 				<div className="flex items-center space-x-3">
 					{user && (
 						<Image
+							className="rounded-full object-cover"
 							src={user.avatar}
 							height={48}
 							width={48}

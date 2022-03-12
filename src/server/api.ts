@@ -21,7 +21,7 @@ export const api = createAPI({
 		};
 	},
 
-	async getContext() {
+	async getContext(req) {
 		const sessions = new SessionManager<Session>();
 
 		const redis = getRedis();
@@ -29,6 +29,10 @@ export const api = createAPI({
 		return {
 			sessions,
 			redis,
+
+			async getSession() {
+				return sessions.from(req);
+			},
 
 			async cache<T>(
 				key: string,
@@ -52,7 +56,7 @@ export const api = createAPI({
 				return recent;
 			},
 
-			async getLife360(req: NextApiRequest) {
+			async getLife360() {
 				const session = await sessions.from(req);
 				return new Life360API(session.life360.access_token);
 			},
