@@ -25,7 +25,7 @@ export default function CirclePage() {
 								{circle?.members
 									.filter(member => member.issues.disconnected == 0)
 									.map(member => {
-										return <li>{member.firstName}</li>;
+										return <li key={member.id}>{member.firstName}</li>;
 									})}
 							</ul>
 						</div>
