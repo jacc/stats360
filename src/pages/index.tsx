@@ -19,13 +19,13 @@ export default function Home() {
 				<div className="w-1/2 space-y-2">
 					<input
 						type="text"
-						className="w-full inline-block border px-2 py-3 rounded-lg dark:bg-gray-900/50 dark:border-gray-800"
+						className="w-full inline-block border px-3 py-3 rounded-lg dark:bg-gray-900/50 dark:border-gray-800"
 						placeholder="Email or phone"
 					/>
 
 					<input
 						type="password"
-						className="w-full inline-block border px-2 py-3 rounded-lg dark:bg-gray-900/50 dark:border-gray-800"
+						className="w-full inline-block border px-3 py-3 rounded-lg dark:bg-gray-900/50 dark:border-gray-800"
 						placeholder="Password"
 					/>
 				</div>
