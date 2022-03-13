@@ -2,6 +2,7 @@ import {createModal} from './create';
 
 import type API from '../../pages/api/circles/[id]/driving';
 import {InferAPIResponse} from 'nextkit';
+import {calculateScoreFor, Weighting} from '../../util/driver-score';
 
 type Option = InferAPIResponse<typeof API, 'GET'>[number]['trips'];
 
@@ -19,12 +20,16 @@ function highest(arr: number[]) {
 	return fix(arr.reduce((a, b) => Math.max(a, b), 0));
 }
 
-function result(arr: number[]) {
+function result(arr: number[], key: Weighting) {
+	const avg = average(arr);
+
 	return (
 		<>
-			{average(arr)}
+			{avg}
 			<span className="text-gray-500">/</span>
 			{highest(arr)}
+			<span className="text-gray-500">/</span>
+			{fix(calculateScoreFor(key, avg))}
 		</>
 	);
 }
@@ -40,7 +45,7 @@ export const DriverModal = createModal<{trips: Option}>(props => {
 				<p>
 					Format is{' '}
 					<code className="text-pink-500 bg-pink-500/25">
-						&lt;avg&gt;/&lt;max&gt;
+						&lt;avg&gt;/&lt;max&gt;/&lt;weight&gt;
 					</code>{' '}
 				</p>
 
@@ -66,23 +71,38 @@ export const DriverModal = createModal<{trips: Option}>(props => {
 						<tbody>
 							<tr>
 								<td className="text-4xl">
-									{result(trips.map(trip => trip.distractedCount))}
+									{result(
+										trips.map(trip => trip.distractedCount),
+										'distractedCount',
+									)}
 								</td>
 
 								<td className="text-4xl">
-									{result(trips.map(trip => trip.hardBrakingCount))}
+									{result(
+										trips.map(trip => trip.hardBrakingCount),
+										'hardBrakingCount',
+									)}
 								</td>
 
 								<td className="text-4xl">
-									{result(trips.map(trip => trip.speedingCount))}
+									{result(
+										trips.map(trip => trip.speedingCount),
+										'speedingCount',
+									)}
 								</td>
 
 								<td className="text-4xl">
-									{result(trips.map(trip => trip.rapidAccelerationCount))}
+									{result(
+										trips.map(trip => trip.rapidAccelerationCount),
+										'rapidAccelerationCount',
+									)}
 								</td>
 
 								<td className="text-4xl">
-									{result(trips.map(trip => trip.crashCount))}
+									{result(
+										trips.map(trip => trip.crashCount),
+										'crashCount',
+									)}
 								</td>
 
 								<td className="text-4xl">

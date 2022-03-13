@@ -16,14 +16,18 @@ const create = <T extends Record<ScoreKeys, number>>(data: T) => data;
 
 // Bad things should be weighted greater than unity (one), and good things less.
 const weightings = create({
-	hardBrakingCount: 1,
-	rapidAccelerationCount: 1,
-	speedingCount: 1,
-	crashCount: 1,
-	distractedCount: 1,
+	hardBrakingCount: 5,
+	rapidAccelerationCount: 3,
+	speedingCount: 10,
+	crashCount: 20,
+	distractedCount: 3,
 });
 
-const TOTAL_WEIGHTS = Object.values(weightings).reduce((a, b) => a + b, 0);
+export type Weighting = keyof typeof weightings;
+
+export function calculateScoreFor(key: keyof typeof weightings, value: number) {
+	return invert(value * weightings[key]);
+}
 
 export function calculateTripScore(trip: Life360UserTrip) {
 	const values = [
@@ -35,6 +39,6 @@ export function calculateTripScore(trip: Life360UserTrip) {
 	] as const;
 
 	return Math.ceil(
-		values.reduce((acc, value) => acc + value, 0) / TOTAL_WEIGHTS,
+		values.reduce((acc, value) => acc + value, 0) / values.length,
 	);
 }
