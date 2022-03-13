@@ -27,7 +27,6 @@ export const MemberModal = createModal<{member?: Life360CircleMember}>(
 					</span>
 				</div>
 			),
-			// content: <pre>{JSON.stringify(member.location, null, 4)}</pre>,
 			content: (
 				<div className="mt-4">
 					<div className="grid grid-cols-1 gap-4">
