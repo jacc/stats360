@@ -4,6 +4,7 @@ import Image from 'next/image';
 import {useState} from 'react';
 import {useLastValue} from '../../../client/hooks/last-value';
 import {MemberModal} from '../../../client/modals/member';
+import {useTrips} from '../../../client/hooks/circles/[id]/driving/[user]';
 
 export default function CirclePage() {
 	const router = useRouter();
@@ -100,15 +101,30 @@ export default function CirclePage() {
 					<div className="grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-4">
 						<div>
 							<div className="font-medium text-lg pb-2">Top Driving Speeds</div>
-							<div className="rounded-xl bg-white dark:bg-gray-800 p-4 space-y-6 shadow-sm dark:shadow-neutral-800/25 font-light border border-gray-300 dark:border-gray-700"></div>
+							<div className="rounded-xl bg-white dark:bg-gray-800 p-4 space-y-6 shadow-sm dark:shadow-neutral-800/25 font-light border border-gray-300 dark:border-gray-700">
+								{circle?.members?.map(member => (
+									<UserDriving
+										key={member.id}
+										circle={circle.id}
+										user={member.id}
+									/>
+								))}
+							</div>
 						</div>
+
 						<div>
 							<div className="font-medium text-lg pb-2">Top Safest Drivers</div>
-							<div className="rounded-xl bg-white dark:bg-gray-800 p-4 space-y-6 shadow-sm dark:shadow-neutral-800/25 font-light border border-gray-300 dark:border-gray-700"></div>
+							<div className="rounded-xl bg-white dark:bg-gray-800 p-4 space-y-6 shadow-sm dark:shadow-neutral-800/25 font-light border border-gray-300 dark:border-gray-700" />
 						</div>
 					</div>
 				</div>
 			</div>
 		</main>
 	);
+}
+
+function UserDriving({user, circle}: {user: string; circle: string}) {
+	const {data: trips} = useTrips(circle, user);
+
+	return <pre>{JSON.stringify(trips, null, 4)}</pre>;
 }
