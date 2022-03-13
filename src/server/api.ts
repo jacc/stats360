@@ -1,4 +1,3 @@
-import {NextApiRequest} from 'next';
 import createAPI from 'nextkit';
 import {getRedis} from './redis';
 import {SessionManager} from './sessions';
