@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import Link from 'next/link';
 import Stats360 from '../client/assets/stats360.png';
 import {BackButton} from '../components/back-button';
 
