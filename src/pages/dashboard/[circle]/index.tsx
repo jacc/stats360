@@ -32,7 +32,7 @@ export default function CirclePage() {
 	const stableSelectedPerson = useLastValue(selectedPerson);
 
 	return (
-		<main className="mx-auto max-w-3xl py-24 space-y-6">
+		<main className="mx-auto max-w-3xl md:py-4 px-4 pt-12 md:pt-[80px] py-8 space-y-6">
 			<BackButton />
 			<MemberModal
 				isOpen={Boolean(selectedPerson)}
@@ -46,7 +46,7 @@ export default function CirclePage() {
 				}}
 			/>
 
-			<div className="rounded-xl bg-white dark:bg-gray-800 p-12 space-y-6 shadow-sm dark:shadow-neutral-800/25 font-light border border-gray-300 dark:border-gray-700">
+			<div className="rounded-xl bg-white dark:bg-gray-800 p-4 md:p-12 space-y-6 shadow-sm dark:shadow-neutral-800/25 font-light border border-gray-300 dark:border-gray-700">
 				<div className="flex items-center space-x-3">
 					<h1 className="font-medium text-2xl">
 						{circle?.name}'s Life360 Stats
@@ -56,7 +56,7 @@ export default function CirclePage() {
 				<div className="space-y-4">
 					<div className="font-medium text-lg">Members</div>
 
-					<div className="rounded-xl bg-white dark:bg-gray-800 p-4 space-y-6 shadow-sm dark:shadow-neutral-800/25 font-light border border-gray-300 dark:border-gray-700">
+					<div className="rounded-xl bg-white dark:bg-gray-800 md:p-4 space-y-6 shadow-sm dark:shadow-neutral-800/25 font-light md:border border-gray-300 dark:border-gray-700">
 						<div className="grid md:grid-cols-2 gap-2">
 							{circle?.members
 								.filter(member => member.issues.disconnected === '0')
@@ -125,7 +125,7 @@ export default function CirclePage() {
 					<div className="grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-4">
 						<div>
 							<div className="font-medium text-lg pb-2">Worst Drivers</div>
-							<div className="rounded-xl bg-white dark:bg-gray-800 p-4 space-y-2 shadow-sm dark:shadow-neutral-800/25 font-light border border-gray-300 dark:border-gray-700">
+							<div className="rounded-xl bg-white dark:bg-gray-800 md:p-4 space-y-2 shadow-sm dark:shadow-neutral-800/25 font-light md:border border-gray-300 dark:border-gray-700">
 								{trips
 									?.sort(
 										(memberA, memberB) =>
@@ -140,7 +140,7 @@ export default function CirclePage() {
 
 						<div>
 							<div className="font-medium text-lg pb-2">Top Safest Drivers</div>
-							<div className="rounded-xl bg-white dark:bg-gray-800 p-4 space-y-6 shadow-sm dark:shadow-neutral-800/25 font-light border border-gray-300 dark:border-gray-700" />
+							<div className="rounded-xl bg-white dark:bg-gray-800 sm:p-4 space-y-6 shadow-sm dark:shadow-neutral-800/25 font-light md:border border-gray-300 dark:border-gray-700" />
 						</div>
 					</div>
 				</div>

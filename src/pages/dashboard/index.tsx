@@ -10,7 +10,7 @@ export default function DashboardPage() {
 	const {data: circles} = useMyCircles();
 
 	return (
-		<main className="mx-auto max-w-3xl py-24 space-y-6">
+		<main className="mx-auto max-w-3xl md:py-24 px-4 py-8 space-y-6">
 			<form
 				action="/api/account/login"
 				method="POST"

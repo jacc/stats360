@@ -4,7 +4,7 @@ import {BackButton} from '../components/back-button';
 
 export default function Why() {
 	return (
-		<main className="mx-auto max-w-3xl py-24 space-y-6">
+		<main className="mx-auto max-w-3xl md:py-24 px-4 py-8 space-y-6">
 			<BackButton />
 
 			<div className="rounded-xl bg-white dark:bg-gray-800 p-12 space-y-6 shadow-sm dark:shadow-neutral-800/25 font-light border border-gray-300 dark:border-gray-700">
