@@ -20,7 +20,7 @@ export default function CirclePage() {
 					<div>Members</div>
 
 					<div className="rounded-xl bg-white dark:bg-gray-800 p-4 space-y-6 shadow-sm dark:shadow-neutral-800/25 font-light border border-gray-300 dark:border-gray-700">
-						<ul className="grid grid-cols-2 gap-4">
+						<ul className="grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-4">
 							{circle?.members
 								.filter(member => member.issues.disconnected === '0')
 								.map(member => (
