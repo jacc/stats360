@@ -10,10 +10,13 @@ import {Button} from '../client/components/Button';
 import {useState} from 'react';
 import {ErrorModal} from '../client/modals/error';
 import {useLastValue} from '../client/hooks/last-value';
+import {DataModal} from '../client/modals/data';
 
 export default function Home() {
 	const router = useRouter();
 	const [loading, {on, off}] = useToggle();
+	const [dataOpen, {on: dataOn, off: dataOff}] = useToggle();
+
 	const [error, set] = useState<Error | null>(null);
 
 	return (
@@ -25,6 +28,7 @@ export default function Home() {
 					set(null);
 				}}
 			/>
+			<DataModal isOpen={dataOpen} close={dataOff} options={{}} />
 
 			<form
 				action="/api/account/login"
@@ -95,11 +99,13 @@ export default function Home() {
 				</div>
 
 				<div>
-					<Link href="/data">
-						<a className="text-xs inline-block dark:hover:text-pink-500 text-pink-500 dark:text-gray-500">
-							Why do we need this?
-						</a>
-					</Link>
+					<button
+						type="button"
+						className="inline-block dark:hover:text-pink-500 text-pink-500 dark:text-gray-500"
+						onClick={dataOn}
+					>
+						Why do we need your login?
+					</button>
 				</div>
 			</form>
 		</main>
