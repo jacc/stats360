@@ -25,7 +25,7 @@ export default function CirclePage() {
 								.filter(member => member.issues.disconnected === '0')
 								.map(member => (
 									<li key={member.id}>
-										<div className="flex items-center space-x-3 rounded-md p-2 border border-gray-200/25 bg-gray-100 dark:bg-gray-900/50 dark:border-gray-600/50">
+										<div className="flex items-center space-x-3 rounded-md p-4 border border-gray-200/25 bg-gray-100 dark:bg-gray-900/50 dark:border-gray-600/50">
 											<div className="flex-shrink-0 flex items-center">
 												{member.avatar && (
 													<Image
