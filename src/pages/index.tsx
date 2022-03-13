@@ -83,7 +83,7 @@ export default function Home() {
 				</div>
 
 				<div>
-					<Link href="/why">
+					<Link href="/data">
 						<a className="text-xs inline-block dark:hover:text-pink-500 text-pink-500 dark:text-gray-500">
 							Why do we need this?
 						</a>
