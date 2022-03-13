@@ -23,8 +23,16 @@ export interface Life360CircleFeatures {
 
 export interface Life360CircleMember {
 	features: any[];
-	issues: any;
-	location?: any[];
+	issues: {
+		action: '1' | '0' | null;
+		dialog: '1' | '0' | null;
+		disconnected: '1' | '0' | null;
+		status: '1' | '0' | null;
+		title: '1' | '0' | null;
+		troubleshooting: '1' | '0' | null;
+		type: 'lp_w' | null;
+	};
+	location: {battery: string};
 	communications: any[];
 	medical: any;
 	relation: any;
