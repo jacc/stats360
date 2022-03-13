@@ -1,10 +1,9 @@
 import {Life360CircleMember} from '../../server/utils/types/circles.types';
 import {createModal} from './create';
-import Image from 'next/image';
 
 import {TiLocationArrowOutline} from 'react-icons/ti';
 import {BsBattery} from 'react-icons/bs';
-import {AiOutlineInfoCircle, AiFillHeart} from 'react-icons/ai';
+import {AiOutlineInfoCircle} from 'react-icons/ai';
 import dayjs from 'dayjs';
 
 export const MemberModal = createModal<{member?: Life360CircleMember}>(
@@ -40,13 +39,13 @@ export const MemberModal = createModal<{member?: Life360CircleMember}>(
 								</div>
 							</div>
 							<p className="text-xs">
-								{!member.location.name ? 'Unknown' : member.location.name} since{' '}
+								{member.location?.name ?? 'Unnamed place'} since{' '}
 								{dayjs
-									.unix(parseInt(member.location.startTimestamp))
+									.unix(parseInt(member.location.startTimestamp, 10))
 									.format('MMMM DD')}{' '}
 								at{' '}
 								{dayjs
-									.unix(parseInt(member.location.startTimestamp))
+									.unix(parseInt(member.location.startTimestamp, 10))
 									.format('h:mma')}
 							</p>
 						</div>
@@ -60,7 +59,7 @@ export const MemberModal = createModal<{member?: Life360CircleMember}>(
 								</div>
 								<p className="text-xs">
 									{member.location.battery}%{' '}
-									{member.location.charge == '1' ? '(charging)' : ''}
+									{member.location.charge === '1' ? '(charging)' : ''}
 								</p>
 							</div>
 						</div>
@@ -73,7 +72,7 @@ export const MemberModal = createModal<{member?: Life360CircleMember}>(
 									</h1>
 								</div>
 								<p className="text-xs">
-									{member.location.isDriving == '0'
+									{member.location.isDriving === '0'
 										? 'Not moving'
 										: `Moving at ${member.location.speed} mph`}
 								</p>
