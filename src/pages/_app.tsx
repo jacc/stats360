@@ -12,7 +12,15 @@ import Link from 'next/link';
 
 export default function App({Component, pageProps, router}: AppProps) {
 	return (
-		<SWRConfig value={{fetcher}}>
+		<SWRConfig
+			value={{
+				fetcher,
+				refreshInterval: 1000 * 10,
+				dedupingInterval: 1000 * 10,
+				errorRetryInterval: 1000 * 10,
+				focusThrottleInterval: 1000 * 10,
+			}}
+		>
 			<Head>
 				<title>stats360 • Life360 Analytic Tool</title>
 			</Head>

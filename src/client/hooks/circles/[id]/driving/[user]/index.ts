@@ -1,7 +1,7 @@
-import type DrivingAPI from '../../../../../../pages/api/circles/[id]/driving/[user]/index';
+import type DrivingAPI from '../../../../../../pages/api/circles/[id]/driving';
 import {endpoint} from '../../../../create';
 
 const create = endpoint<typeof DrivingAPI>();
-export const useTrips = create(
-	(circle, user) => `/api/circles/${circle}/driving/${user}`,
+export const useTrips = create((circle: string | null) =>
+	circle ? `/api/circles/${circle}/driving/` : null,
 );
