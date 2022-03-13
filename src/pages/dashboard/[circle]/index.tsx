@@ -146,7 +146,7 @@ function UserDriving({
 	}
 
 	return (
-		<div>
+		<div className="flex items-center space-x-3 rounded-md p-2 border border-gray-200/25 bg-gray-100 dark:bg-gray-900/50 dark:border-gray-600/50">
 			<div className="flex items-center space-x-2">
 				<div className="flex-shrink-0 flex items-center">
 					{member.avatar && (
@@ -160,11 +160,11 @@ function UserDriving({
 					)}
 				</div>
 
-				<div className="flex-grow">
-					<p className="font-medium">{member.firstName}</p>
+				<div className="flex-grow flex justify-between">
+					<p className="block font-medium">
+						<span>{member.firstName}</span>
 
-					<p className="flex text-sm items-center space-x-1">
-						{fastestTrip} MPH
+						<span className="opacity-50">&nbsp; {fastestTrip} mph</span>
 					</p>
 				</div>
 			</div>

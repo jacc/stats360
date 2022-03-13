@@ -4,6 +4,8 @@ import Image from 'next/image';
 
 import {TiLocationArrowOutline} from 'react-icons/ti';
 import {BsBattery} from 'react-icons/bs';
+import {AiOutlineInfoCircle} from 'react-icons/ai';
+import dayjs from 'dayjs';
 
 export const MemberModal = createModal<{member?: Life360CircleMember}>(
 	props => {
@@ -17,7 +19,14 @@ export const MemberModal = createModal<{member?: Life360CircleMember}>(
 		const {member} = props.options;
 
 		return {
-			title: member.firstName,
+			title: (
+				<div>
+					<span>
+						{member.firstName}
+						<span className="opacity-50">&nbsp; {member.lastName}</span>
+					</span>
+				</div>
+			),
 			// content: <pre>{JSON.stringify(member.location, null, 4)}</pre>,
 			content: (
 				<div className="mt-4">
@@ -31,7 +40,11 @@ export const MemberModal = createModal<{member?: Life360CircleMember}>(
 									</h1>
 								</div>
 							</div>
-							<p className="text-xs">{member.location.name}</p>
+							<p className="text-xs">
+								{!member.location.name ? 'Unknown' : member.location.name} since{' '}
+								{dayjs.unix(member.location.startTimestamp).format('MMMM DD')}{' '}
+								at {dayjs.unix(member.location.startTimestamp).format('h:mma')}
+							</p>
 						</div>
 						<div>
 							<div className="rounded-xl bg-white dark:bg-gray-800 p-4 shadow-sm dark:shadow-neutral-800/25 font-light border border-gray-300 dark:border-gray-700">
@@ -41,7 +54,25 @@ export const MemberModal = createModal<{member?: Life360CircleMember}>(
 										Battery
 									</h1>
 								</div>
-								<p className="text-xs">{member.location.battery}</p>
+								<p className="text-xs">
+									{member.location.battery}%{' '}
+									{member.location.charge == '1' ? '(charging)' : ''}
+								</p>
+							</div>
+						</div>
+						<div>
+							<div className="rounded-xl bg-white dark:bg-gray-800 p-4 shadow-sm dark:shadow-neutral-800/25 font-light border border-gray-300 dark:border-gray-700">
+								<div className="flex-shrink-0 flex items-center space-x-1 ">
+									<AiOutlineInfoCircle />
+									<h1 className="font-semibold text-sm sm:text-regular">
+										Status
+									</h1>
+								</div>
+								<p className="text-xs">
+									{member.location.isDriving == '0'
+										? 'Not moving'
+										: `Moving at ${member.location.speed} mph`}
+								</p>
 							</div>
 						</div>
 					</div>
