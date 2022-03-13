@@ -4,6 +4,8 @@ import Image from 'next/image';
 import {useState} from 'react';
 import {useLastValue} from '../../../client/hooks/last-value';
 import {MemberModal} from '../../../client/modals/member';
+import {useTrips} from '../../../client/hooks/circles/[id]/driving/[user]';
+import {Life360CircleMember} from '../../../server/utils/types/circles.types';
 
 export default function CirclePage() {
 	const router = useRouter();
@@ -67,7 +69,13 @@ export default function CirclePage() {
 												</div>
 
 												<div className="flex-grow flex justify-between">
-													<div className="font-medium">{member.firstName}</div>
+													<p className="block font-medium">
+														<span>{member.firstName}</span>
+
+														<span className="opacity-50">
+															&nbsp; {member.lastName}
+														</span>
+													</p>
 
 													<div className="flex items-center mr-1">
 														<span
@@ -99,16 +107,67 @@ export default function CirclePage() {
 				<div className="space-y-4">
 					<div className="grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-4">
 						<div>
-							<div className="font-medium text-lg pb-2">Top Driving Speeds</div>
-							<div className="rounded-xl bg-white dark:bg-gray-800 p-4 space-y-6 shadow-sm dark:shadow-neutral-800/25 font-light border border-gray-300 dark:border-gray-700"></div>
+							<div className="font-medium text-lg pb-2">Driving Speeds</div>
+							<div className="rounded-xl bg-white dark:bg-gray-800 p-4 space-y-6 shadow-sm dark:shadow-neutral-800/25 font-light border border-gray-300 dark:border-gray-700">
+								{circle?.members?.map(member => (
+									<UserDriving
+										key={member.id}
+										circle={circle.id}
+										member={member}
+									/>
+								))}
+							</div>
 						</div>
+
 						<div>
 							<div className="font-medium text-lg pb-2">Top Safest Drivers</div>
-							<div className="rounded-xl bg-white dark:bg-gray-800 p-4 space-y-6 shadow-sm dark:shadow-neutral-800/25 font-light border border-gray-300 dark:border-gray-700"></div>
+							<div className="rounded-xl bg-white dark:bg-gray-800 p-4 space-y-6 shadow-sm dark:shadow-neutral-800/25 font-light border border-gray-300 dark:border-gray-700" />
 						</div>
 					</div>
 				</div>
 			</div>
 		</main>
+	);
+}
+
+function UserDriving({
+	member,
+	circle,
+}: {
+	member: Life360CircleMember;
+	circle: string;
+}) {
+	const {data: trips} = useTrips(circle, member.id);
+
+	const fastestTrip = trips?.[0]?.topSpeed;
+
+	if (!fastestTrip) {
+		return null;
+	}
+
+	return (
+		<div>
+			<div className="flex items-center space-x-2">
+				<div className="flex-shrink-0 flex items-center">
+					{member.avatar && (
+						<Image
+							className="rounded-full object-cover"
+							src={member.avatar}
+							alt="User"
+							height={36}
+							width={36}
+						/>
+					)}
+				</div>
+
+				<div className="flex-grow">
+					<p className="font-medium">{member.firstName}</p>
+
+					<p className="flex text-sm items-center space-x-1">
+						{fastestTrip} MPH
+					</p>
+				</div>
+			</div>
+		</div>
 	);
 }

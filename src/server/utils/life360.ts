@@ -149,9 +149,9 @@ export class Life360API {
 	 * @param userId The ID of the user
 	 */
 	async getUserTrips(circleId: string, userId: string) {
-		return this.request<Life360UserTrip[]>(
+		return this.request<{trips: Life360UserTrip[]}>(
 			`circles/${circleId}/users/${userId}/driverbehavior/trips`,
-		);
+		).then(res => res.trips);
 	}
 
 	/**
