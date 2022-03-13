@@ -9,11 +9,11 @@ import {useThrottle, useToggle} from 'alistair/hooks';
 import {ContactModal} from '../client/modals/contact';
 import {useUser} from '../client/hooks/users/@me';
 import colors from 'tailwindcss/colors';
-import {HashLoader} from 'react-spinners';
 
 import '@fontsource/plus-jakarta-sans';
 import 'tailwindcss/tailwind.css';
 import '../styles/index.css';
+import {HashLoader} from 'react-spinners';
 
 function App({Component, pageProps, router}: AppProps) {
 	const [contactOpen, {on, off}] = useToggle();
@@ -36,6 +36,20 @@ function App({Component, pageProps, router}: AppProps) {
 
 	return (
 		<>
+			<Head>
+				<title>Stats360 - Life360 Insights</title>
+				<meta property="og:title" content="Stats360" />
+				<meta
+					property="og:description"
+					content="Stats360 - Insights to your Life360 circles."
+				/>
+				<meta property="og:type" content="website" />
+				<meta property="og:url" content="https://phiilu.com/" />
+				<meta
+					property="og:image"
+					content="https://stats360.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fstats360.4b04b917.png&w=96&q=75"
+				/>
+			</Head>
 			<ContactModal isOpen={contactOpen} close={off} options={{}} />
 
 			<AnimatePresence exitBeforeEnter>
