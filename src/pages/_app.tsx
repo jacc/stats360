@@ -38,7 +38,7 @@ export default function App({Component, pageProps, router}: AppProps) {
 					animate={{opacity: 1}}
 					exit={{opacity: 0}}
 				>
-					<div className="p-6">
+					<div className="p-1 md:p-6">
 						<Component {...pageProps} />
 					</div>
 				</motion.div>
