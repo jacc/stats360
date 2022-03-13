@@ -1,6 +1,5 @@
 import type LoginAPI from './api/account/login';
 import Image from 'next/image';
-import Link from 'next/link';
 import {useRouter} from 'next/router';
 import {InferAPIResponse} from 'nextkit';
 import Stats360 from '../client/assets/stats360.png';
