@@ -16,7 +16,7 @@ export interface Life360LoginUser {
 	lastName: string;
 	loginEmail: string;
 	loginPhone: string;
-	avatar: string;
+	avatar: string | null;
 	locale: string;
 	language: string;
 	created: string;

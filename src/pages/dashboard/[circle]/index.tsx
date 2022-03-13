@@ -10,6 +10,7 @@ import {Life360UserTrip} from '../../../server/utils/types/trip.types';
 import {BackButton} from '../../../components/back-button';
 import {AiOutlineCrown} from 'react-icons/ai';
 import ordinal from 'ordinal';
+import defaultAvatar from '../../../client/assets/default-avatar.png';
 
 function useThisCircle() {
 	const router = useRouter();
@@ -73,9 +74,9 @@ export default function CirclePage() {
 										>
 											<div className="flex items-center space-x-3 rounded-md p-4 border border-gray-200/25 bg-gray-100 dark:bg-gray-900/50 dark:border-gray-600/50">
 												<div className="flex-shrink-0 flex items-center">
-													{member.avatar && (
+													{member && (
 														<Image
-															src={member.avatar}
+															src={member.avatar ?? defaultAvatar}
 															alt={member.firstName}
 															height={24}
 															width={24}
@@ -175,10 +176,10 @@ function UserTrip({
 		<div className="flex items-center space-x-2 rounded-md pl-3 p-4 border border-gray-200/25 bg-gray-100 dark:bg-gray-900/50 dark:border-gray-600/50">
 			<div className="flex w-full items-center space-x-2">
 				<div className="flex-shrink-0 flex items-center">
-					{member.avatar && (
+					{member && (
 						<Image
 							className="rounded-full object-cover"
-							src={member.avatar}
+							src={member.avatar ?? defaultAvatar}
 							alt="User"
 							height={24}
 							width={24}

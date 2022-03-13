@@ -3,6 +3,7 @@ import Image from 'next/image';
 import {useMyCircles} from '../../client/hooks/account/circles';
 import {MdPeopleAlt} from 'react-icons/md';
 import Link from 'next/link';
+import defaultAvatar from '../../client/assets/default-avatar.png';
 
 export default function DashboardPage() {
 	const {data: user} = useUser();
@@ -19,7 +20,7 @@ export default function DashboardPage() {
 					{user && (
 						<Image
 							className="rounded-full object-cover"
-							src={user.avatar}
+							src={user.avatar ?? defaultAvatar}
 							height={48}
 							width={48}
 							alt="Life 360 Logo"

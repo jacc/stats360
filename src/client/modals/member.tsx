@@ -49,6 +49,7 @@ export const MemberModal = createModal<{member?: Life360CircleMember}>(
 									.format('h:mma')}
 							</p>
 						</div>
+
 						<div>
 							<div className="rounded-xl bg-white dark:bg-gray-800 p-4 shadow-sm dark:shadow-neutral-800/25 font-light border border-gray-300 dark:border-gray-700">
 								<div className="flex-shrink-0 flex items-center space-x-1 ">
@@ -63,6 +64,7 @@ export const MemberModal = createModal<{member?: Life360CircleMember}>(
 								</p>
 							</div>
 						</div>
+
 						<div>
 							<div className="rounded-xl bg-white dark:bg-gray-800 p-4 shadow-sm dark:shadow-neutral-800/25 font-light border border-gray-300 dark:border-gray-700">
 								<div className="flex-shrink-0 flex items-center space-x-1 ">

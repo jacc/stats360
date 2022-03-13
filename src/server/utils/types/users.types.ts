@@ -16,7 +16,7 @@ export interface Life360User {
 	firstName: string;
 	lastName: string;
 	isAdmin: string;
-	avatar: string;
+	avatar: string | null;
 	pinNumber: string;
 	loginEmail: string;
 	loginPhone: string;
@@ -82,7 +82,7 @@ export interface Life360SelfUser {
 	lastName: string;
 	loginEmail: string;
 	loginPhone: string;
-	avatar: string;
+	avatar: string | null;
 	locale: string;
 	language: string;
 	created: string;
