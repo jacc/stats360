@@ -9,8 +9,12 @@ import '@fontsource/plus-jakarta-sans';
 import 'tailwindcss/tailwind.css';
 import '../styles/index.css';
 import Link from 'next/link';
+import {useToggle} from 'alistair/hooks';
+import {ContactModal} from '../client/modals/contact';
 
 export default function App({Component, pageProps, router}: AppProps) {
+	const [contactOpen, {on, off}] = useToggle();
+
 	return (
 		<SWRConfig
 			value={{
@@ -24,6 +28,8 @@ export default function App({Component, pageProps, router}: AppProps) {
 			<Head>
 				<title>stats360 • Life360 Analytic Tool</title>
 			</Head>
+
+			<ContactModal isOpen={contactOpen} close={off} options={{}} />
 
 			<AnimatePresence exitBeforeEnter>
 				<motion.div
@@ -65,11 +71,13 @@ export default function App({Component, pageProps, router}: AppProps) {
 					&nbsp;
 					<span>—</span>
 					&nbsp;
-					<Link href="/why">
-						<a className="text-sm text-pink-500 hover:underline underline-offset-2">
-							contact
-						</a>
-					</Link>
+					<button
+						type="button"
+						className="text-sm text-pink-500 hover:underline underline-offset-2"
+						onClick={on}
+					>
+						contact
+					</button>
 				</div>
 			</footer>
 		</SWRConfig>
