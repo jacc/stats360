@@ -4,6 +4,7 @@ import {SWRConfig} from 'swr';
 import {fetcher} from '../client/fetcher';
 import Head from 'next/head';
 import {AnimatePresence, motion} from 'framer-motion';
+import Script from 'next/script';
 
 import '@fontsource/plus-jakarta-sans';
 import 'tailwindcss/tailwind.css';
@@ -25,10 +26,6 @@ export default function App({Component, pageProps, router}: AppProps) {
 				focusThrottleInterval: 1000 * 10,
 			}}
 		>
-			<Head>
-				<title>stats360 • Life360 Analytic Tool</title>
-			</Head>
-
 			<ContactModal isOpen={contactOpen} close={off} options={{}} />
 
 			<AnimatePresence exitBeforeEnter>
@@ -80,6 +77,19 @@ export default function App({Component, pageProps, router}: AppProps) {
 					</button>
 				</div>
 			</footer>
+			<Script
+				src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}
+				strategy="afterInteractive"
+			/>
+			<Script id="google-analytics" strategy="afterInteractive">
+				{`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){window.dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', \`${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}\`);
+        `}
+			</Script>
 		</SWRConfig>
 	);
 }
