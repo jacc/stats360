@@ -125,6 +125,29 @@ export default function CirclePage() {
 				<div className="space-y-4">
 					<div className="grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-4">
 						<div>
+							<div className="font-medium text-lg pb-2">Driving Speeds</div>
+							<div className="rounded-xl bg-white dark:bg-gray-800 md:p-4 space-y-2 shadow-sm dark:shadow-neutral-800/25 font-light md:border border-gray-300 dark:border-gray-700">
+								{trips
+									?.filter(trip => trip.trips.length)
+									.sort((memberA, memberB) => {
+										if (memberA.trips.length === 0) {
+											return -1;
+										}
+
+										if (memberB.trips.length === 0) {
+											return 1;
+										}
+
+										return (
+											memberB.trips[0].topSpeed - memberA.trips[0].topSpeed
+										);
+									})
+									.map((trip, index) => (
+										<UserSpeeds key={trip.member} position={index} {...trip} />
+									))}
+							</div>
+						</div>
+						<div>
 							<div className="font-medium text-lg pb-2">Worst Drivers</div>
 							<div className="rounded-xl bg-white dark:bg-gray-800 md:p-4 space-y-2 shadow-sm dark:shadow-neutral-800/25 font-light md:border border-gray-300 dark:border-gray-700">
 								{trips
@@ -137,11 +160,6 @@ export default function CirclePage() {
 										<UserTrip key={trip.member} {...trip} position={index} />
 									))}
 							</div>
-						</div>
-
-						<div>
-							<div className="font-medium text-lg pb-2">Top Safest Drivers</div>
-							<div className="rounded-xl bg-white dark:bg-gray-800 sm:p-4 space-y-6 shadow-sm dark:shadow-neutral-800/25 font-light md:border border-gray-300 dark:border-gray-700" />
 						</div>
 					</div>
 				</div>
@@ -213,6 +231,78 @@ function UserTrip({
 								trips.reduce((acc, trip) => trip.score + acc, 0) / trips.length,
 							)}
 							%
+						</span>
+					</p>
+				</div>
+			</div>
+		</div>
+	);
+}
+
+function UserSpeeds({
+	trips,
+	member: memberId,
+	position,
+}: {
+	trips: Life360UserTrip[];
+	member: Life360CircleMember['id'];
+	position: number;
+}) {
+	const circle = useThisCircle();
+	const fastestTrip = trips?.[0]?.topSpeed;
+
+	const member = circle?.members.find(member => member.id === memberId);
+
+	if (!fastestTrip || !member) {
+		return null;
+	}
+
+	// Calculation: `mph = m/s * 2.237`
+	const MS_TO_MPH = 2.237;
+
+	const positionColors = {
+		0: 'text-yellow-500',
+		1: 'dark:text-gray-300 text-gray-600',
+		2: 'text-yellow-700',
+	};
+
+	return (
+		<div className="flex items-center space-x-2 rounded-md pl-3 p-4 border border-gray-200/25 bg-gray-100 dark:bg-gray-900/50 dark:border-gray-600/50">
+			<div className="flex w-full items-center space-x-2">
+				<div className="flex-shrink-0 flex items-center">
+					{member && (
+						<Image
+							className="rounded-full object-cover"
+							src={member.avatar ?? defaultAvatar}
+							alt="User"
+							height={24}
+							width={24}
+						/>
+					)}
+				</div>
+
+				<div className="flex flex-grow items-center w-full justify-between relative">
+					<span className="absolute -top-1.5 opacity-50 align-middle select-none font-mono text-xs">
+						{ordinal(position + 1)}
+					</span>
+
+					<p className="font-medium flex-shrink-0 h-3.5">{member.firstName}</p>
+
+					<p className="flex space-x-2">
+						{[0, 1, 2].includes(position) && (
+							<>
+								<AiOutlineCrown
+									size={24}
+									className={`inline-block ${
+										positionColors[position as 0 | 1 | 2]
+									}`}
+								/>
+								&nbsp;
+							</>
+						)}
+
+						<span title="Average Driving Score">
+							{Math.ceil(fastestTrip * MS_TO_MPH)} mph
 						</span>
 					</p>
 				</div>
