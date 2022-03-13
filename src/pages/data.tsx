@@ -14,18 +14,26 @@ export default function Why() {
 					</h1>
 				</div>
 
-				<h2 className="font-light text-lg text-gray-500">
+				<p className="font-light text-lg text-gray-500">
 					Stats360 was developed to allow Life360 users to see information about
 					their Life360 circles. Because of this, we need your account username
 					and password to login and request information on your behalf. However,
 					the login is not sent anywhere but Life360, and we do not store your
-					email or password. All we store is a temporary access token given to
-					us by Life360 that allows us to request data.
-				</h2>
-				<h2 className="font-light text-lg text-gray-500">
-					Stats360 is fully open source, and developers are more than welcome to
-					take a look through the source code to see what we do under the hood.
-				</h2>
+					email or password. We temporarily store your access token and cache a
+					majority of endpoints in our Redis instance so we do not hit the API
+					too often.
+				</p>
+
+				<p className="font-light text-lg text-gray-500">
+					Stats360 will eventually be fully open source, developers will be more
+					than welcome to take a look through the source code to see what we do
+					under the hood.
+				</p>
+
+				<p className="font-light text-lg text-gray-500">
+					A more in depth explanation of how we use your data can be provided if
+					you contact us (see footer of page).
+				</p>
 			</div>
 		</main>
 	);
