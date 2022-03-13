@@ -133,6 +133,12 @@ function UserDriving({
 }) {
 	const {data: trips} = useTrips(circle, member.id);
 
+	const fastestTrip = trips?.[0]?.topSpeed;
+
+	if (!fastestTrip) {
+		return null;
+	}
+
 	return (
 		<div>
 			<div className="flex items-center space-x-2">
@@ -149,12 +155,11 @@ function UserDriving({
 				</div>
 
 				<div className="flex-grow">
-					<div className="font-medium">{member.firstName}</div>
-					<div className="text-sm text-gray-600">{member.lastName}</div>
+					<p className="font-medium">{member.firstName}</p>
 
-					<div className="flex items-center space-x-1">
-						<p>{trips?.[0]?.topSpeed} MPH</p>
-					</div>
+					<p className="flex text-sm items-center space-x-1">
+						{fastestTrip} MPH
+					</p>
 				</div>
 			</div>
 		</div>
