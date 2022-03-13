@@ -9,7 +9,7 @@ import {useThrottle, useToggle} from 'alistair/hooks';
 import {ContactModal} from '../client/modals/contact';
 import {useUser} from '../client/hooks/users/@me';
 import colors from 'tailwindcss/colors';
-
+import Head from 'next/head';
 import '@fontsource/plus-jakarta-sans';
 import 'tailwindcss/tailwind.css';
 import '../styles/index.css';
