@@ -17,7 +17,11 @@ export default function CirclePage() {
 		<main className="mx-auto max-w-3xl py-24 space-y-6">
 			<MemberModal
 				isOpen={Boolean(selectedPerson)}
-				member={circle?.members.find(member => member.id === selectedPerson)}
+				options={{
+					member: circle?.members.find(
+						member => member.id === stableSelectedPerson,
+					),
+				}}
 				close={() => {
 					setSelectedPerson(null);
 				}}
