@@ -125,7 +125,7 @@ export default function CirclePage() {
 				<div className="space-y-4">
 					<div className="grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-4">
 						<div>
-							<div className="font-medium text-lg pb-2">Driving Speeds</div>
+							<div className="font-medium text-lg pb-2">Recent Top Speeds</div>
 							<div className="rounded-xl bg-white dark:bg-gray-800 md:p-4 space-y-2 shadow-sm dark:shadow-neutral-800/25 font-light md:border border-gray-300 dark:border-gray-700">
 								{trips
 									?.filter(trip => trip.trips.length)
@@ -213,7 +213,7 @@ function UserTrip({
 
 					<p className="font-medium flex-shrink-0 h-3.5">{member.firstName}</p>
 
-					<p className="flex space-x-2">
+					<div className="flex space-x-2">
 						{[0, 1, 2].includes(position) && (
 							<>
 								<AiOutlineCrown
@@ -226,13 +226,14 @@ function UserTrip({
 							</>
 						)}
 
-						<span title="Average Driving Score">
+						<p title="Average Driving Score Percentage">
 							{Math.floor(
 								trips.reduce((acc, trip) => trip.score + acc, 0) / trips.length,
 							)}
-							%
-						</span>
-					</p>
+
+							<span className="text-xs">%</span>
+						</p>
+					</div>
 				</div>
 			</div>
 		</div>
