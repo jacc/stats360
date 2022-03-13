@@ -142,12 +142,14 @@ function UserDriving({
 	circle: string;
 }) {
 	const {data: trips} = useTrips(circle, member.id);
-
 	const fastestTrip = trips?.[0]?.topSpeed;
 
 	if (!fastestTrip) {
 		return null;
 	}
+
+	// Calculation: `mph = m/s * 2.237`
+	const MS_TO_MPH = 2.237;
 
 	return (
 		<div className="flex items-center space-x-2 rounded-md p-4 border border-gray-200/25 bg-gray-100 dark:bg-gray-900/50 dark:border-gray-600/50">
@@ -168,7 +170,9 @@ function UserDriving({
 					<p className="block font-medium">
 						<span>{member.firstName}</span>
 
-						<span className="opacity-50">&nbsp; {fastestTrip} mph</span>
+						<span className="opacity-50">
+							&nbsp; {Math.ceil(fastestTrip * MS_TO_MPH)} mph
+						</span>
 					</p>
 				</div>
 			</div>
