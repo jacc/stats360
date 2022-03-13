@@ -8,14 +8,14 @@ import dayjs from 'dayjs';
 
 export const MemberModal = createModal<{member?: Life360CircleMember}>(
 	props => {
-		if (!props.options.member) {
+		const {member} = props.options;
+
+		if (!member) {
 			return {
-				title: 'Loading...',
-				content: 'Searching the interwebs...',
+				title: 'Loading',
+				content: 'Searching da interwebs...',
 			};
 		}
-
-		const {member} = props.options;
 
 		return {
 			title: (

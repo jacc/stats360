@@ -1,49 +1,18 @@
 import {Dialog, Transition} from '@headlessui/react';
-import {useToggle} from 'alistair/hooks';
 import React, {Fragment, ReactNode} from 'react';
 import {BiX} from 'react-icons/bi';
-import {useLastValue} from '../hooks/last-value';
 
-export function useModal<Y>(options: Y | null) {
-	const [isOpen, {on, off}] = useToggle();
+interface Props<Y> {
+	isOpen: boolean;
+	close: () => unknown;
 
-	const stableOptions = useLastValue(options);
-
-	let props: Props<Y>;
-
-	if (isOpen) {
-		if (!stableOptions) {
-			throw new Error('Modal options must be set when opened!');
-		}
-
-		props = {
-			isOpen,
-			options: stableOptions,
-			close: off,
-		};
-	} else {
-		props = {
-			isOpen: false,
-			options: stableOptions,
-			close: off,
-		};
-	}
-
-	return {
-		props,
-		open: on,
-		close: off,
-	};
+	// Required because used in the callback
+	// eslint-disable-next-line react/no-unused-prop-types
+	options: Y;
 }
 
-export type Props<Y> =
-	| {isOpen: true; options: Y; close: () => unknown}
-	| {isOpen: false; options?: Partial<Y> | null; close: () => unknown};
-
-export type OpenProps<Y> = Extract<Props<Y>, {isOpen: true}>;
-
 export function createModal<Y>(
-	callback: (callback: OpenProps<Y>) => {
+	callback: (callback: Props<Y>) => {
 		content: ReactNode;
 		title: ReactNode;
 	},
@@ -51,11 +20,8 @@ export function createModal<Y>(
 	// Required because we need a .displayName for the Component
 	// eslint-disable-next-line func-names
 	return function Modal(props: Props<Y>) {
+		const {content, title} = callback(props);
 		const {isOpen, close: closeModal} = props;
-
-		const {content, title} = props.isOpen
-			? callback(props)
-			: {title: null, content: null};
 
 		return (
 			<Transition appear show={isOpen} as={Fragment}>
