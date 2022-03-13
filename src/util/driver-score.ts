@@ -22,11 +22,11 @@ const create = <T extends Record<ScoreKeys, number>>(data: T) => data;
 
 // Bad things should be weighted greater than unity (one), and good things less.
 const weightings = create({
-	hardBrakingCount: 85,
-	rapidAccelerationCount: 50,
-	speedingCount: 20,
-	crashCount: 100,
-	distractedCount: 9,
+	hardBrakingCount: 4,
+	rapidAccelerationCount: 2,
+	speedingCount: 5,
+	crashCount: 5,
+	distractedCount: 2,
 	excessDuration: 2.5 / HOUR_IN_SECONDS,
 });
 
