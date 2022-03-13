@@ -7,20 +7,24 @@ import Stats360 from '../client/assets/stats360.png';
 import {fetcher} from '../client/fetcher';
 import {useToggle} from 'alistair/hooks';
 import {Button} from '../client/components/Button';
-import {useModal} from '../client/modals/create';
 import {useState} from 'react';
 import {ErrorModal} from '../client/modals/error';
+import {useLastValue} from '../client/hooks/last-value';
 
 export default function Home() {
 	const router = useRouter();
 	const [loading, {on, off}] = useToggle();
-
-	const [error] = useState<Error | null>(null);
-	const {props} = useModal(error && {error});
+	const [error, set] = useState<Error | null>(null);
 
 	return (
 		<main className="mx-auto max-w-3xl py-24 space-y-6">
-			<ErrorModal {...props} />
+			<ErrorModal
+				options={{error: useLastValue(error)!}}
+				isOpen={Boolean(error)}
+				close={() => {
+					set(null);
+				}}
+			/>
 
 			<form
 				action="/api/account/login"

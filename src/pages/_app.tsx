@@ -14,7 +14,6 @@ import '@fontsource/plus-jakarta-sans';
 import 'tailwindcss/tailwind.css';
 import '../styles/index.css';
 import {HashLoader} from 'react-spinners';
-import {Head} from 'next/document';
 
 function App({Component, pageProps, router}: AppProps) {
 	const [contactOpen, {on, off}] = useToggle();
@@ -65,9 +64,9 @@ function App({Component, pageProps, router}: AppProps) {
 				) : (
 					<motion.div
 						key={router.pathname}
-						initial={{opacity: 0}}
-						animate={{opacity: 1}}
-						exit={{opacity: 0}}
+						initial={{opacity: 0, height: 0, className: 'overflow-hidden'}}
+						animate={{opacity: 1, height: 'auto'}}
+						exit={{opacity: 0, height: 0, className: 'overflow-hidden'}}
 					>
 						<Component {...pageProps} />
 					</motion.div>

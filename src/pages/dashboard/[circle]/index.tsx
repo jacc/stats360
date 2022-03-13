@@ -28,19 +28,20 @@ export default function CirclePage() {
 	const circle = useThisCircle();
 	const {data: trips} = useTrips(circle?.id ?? null);
 
-	const [selectedPerson, setSelectedPerson] = useState<string | null>(null);
-	const stableSelectedPerson = useLastValue(selectedPerson);
+	const [selectedPersonId, setSelectedPerson] = useState<string | null>(null);
+
+	const bruh =
+		circle?.members.find(member => member.id === selectedPersonId) ?? null;
+
+	const selectedPerson = useLastValue(bruh);
 
 	return (
 		<main className="mx-auto max-w-3xl md:py-4 px-4 pt-12 md:pt-[80px] py-8 space-y-6">
 			<BackButton />
+
 			<MemberModal
-				isOpen={Boolean(selectedPerson)}
-				options={{
-					member: circle?.members.find(
-						member => member.id === stableSelectedPerson,
-					),
-				}}
+				options={{member: selectedPerson!}}
+				isOpen={Boolean(selectedPersonId)}
 				close={() => {
 					setSelectedPerson(null);
 				}}
