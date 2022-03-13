@@ -6,6 +6,7 @@ export default function Why() {
 	return (
 		<main className="mx-auto max-w-3xl py-24 space-y-6">
 			<BackButton />
+
 			<div className="rounded-xl bg-white dark:bg-gray-800 p-12 space-y-6 shadow-sm dark:shadow-neutral-800/25 font-light border border-gray-300 dark:border-gray-700">
 				<div className="flex items-center space-x-3">
 					<Image src={Stats360} height={48} width={48} alt="Life 360 Logo" />
