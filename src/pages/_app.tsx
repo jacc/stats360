@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {AppProps} from 'next/app';
 import {SWRConfig} from 'swr';
 import {fetcher} from '../client/fetcher';
@@ -12,9 +12,18 @@ import '../styles/index.css';
 import Link from 'next/link';
 import {useToggle} from 'alistair/hooks';
 import {ContactModal} from '../client/modals/contact';
+import {useUser} from '../client/hooks/users/@me';
+import Router from 'next/router';
 
 export default function App({Component, pageProps, router}: AppProps) {
 	const [contactOpen, {on, off}] = useToggle();
+	const user = useUser();
+
+	useEffect(() => {
+		if (user.error?.code == 401) {
+			Router.push('/');
+		}
+	}, []);
 
 	return (
 		<SWRConfig
