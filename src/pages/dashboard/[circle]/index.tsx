@@ -35,7 +35,7 @@ export default function CirclePage() {
 				</div>
 
 				<div className="space-y-4">
-					<div>Members</div>
+					<div className="font-medium text-lg">Members</div>
 
 					<div className="rounded-xl bg-white dark:bg-gray-800 p-4 space-y-6 shadow-sm dark:shadow-neutral-800/25 font-light border border-gray-300 dark:border-gray-700">
 						<div className="grid grid-cols-2 gap-4">
@@ -96,29 +96,18 @@ export default function CirclePage() {
 					</div>
 				</div>
 
-				{/* <div className="grid grid-cols-1 auto-cols-max md:grid-cols-2 gap-3">
-				{circles ? (
-					circles.length > 0 ? (
-						circles.map(circle => (
-							<Link key={circle.id} href={`/dashboard/${circle.id}`}>
-								<a className="hover:bg-pink-500/5 hover:text-pink-500 hover:border-pink-500/25 dark:hover:bg-pink-900/10 transition-all duration-150 group w-full flex justify-between border px-3 py-3 rounded-lg dark:bg-gray-900/50 dark:border-gray-800">
-									<p>{circle.name}</p>
-
-									<p className="text-gray-600 dark:text-gray-400 group-hover:text-pink-400">
-										<MdPeopleAlt className="inline -mt-1" />
-										&nbsp;
-										<span>{circle.memberCount}</span>
-									</p>
-								</a>
-							</Link>
-						))
-					) : (
-						<p>No circles!</p>
-					)
-				) : (
-					<p>Loading...</p>
-				)}
-			</div> */}
+				<div className="space-y-4">
+					<div className="grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-4">
+						<div>
+							<div className="font-medium text-lg pb-2">Top Driving Speeds</div>
+							<div className="rounded-xl bg-white dark:bg-gray-800 p-4 space-y-6 shadow-sm dark:shadow-neutral-800/25 font-light border border-gray-300 dark:border-gray-700"></div>
+						</div>
+						<div>
+							<div className="font-medium text-lg pb-2">Top Safest Drivers</div>
+							<div className="rounded-xl bg-white dark:bg-gray-800 p-4 space-y-6 shadow-sm dark:shadow-neutral-800/25 font-light border border-gray-300 dark:border-gray-700"></div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</main>
 	);
