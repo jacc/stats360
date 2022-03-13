@@ -6,6 +6,7 @@ import {useLastValue} from '../../../client/hooks/last-value';
 import {MemberModal} from '../../../client/modals/member';
 import {useTrips} from '../../../client/hooks/circles/[id]/driving/[user]';
 import {Life360CircleMember} from '../../../server/utils/types/circles.types';
+import {BackButton} from '../../../components/back-button';
 
 export default function CirclePage() {
 	const router = useRouter();
@@ -21,6 +22,7 @@ export default function CirclePage() {
 
 	return (
 		<main className="mx-auto max-w-3xl py-24 space-y-6">
+			<BackButton />
 			<MemberModal
 				isOpen={Boolean(selectedPerson)}
 				options={{
