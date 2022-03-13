@@ -14,7 +14,7 @@ export default api({
 
 		return ctx.cache(`trip:${circle}:${user}`, async () => {
 			const trips = await api.getUserTrips(circle, user);
-			return trips.sort((a, b) => a.topSpeed - b.topSpeed);
+			return trips.sort((a, b) => b.topSpeed - a.topSpeed);
 		});
 	},
 });

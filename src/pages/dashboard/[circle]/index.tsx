@@ -5,6 +5,7 @@ import {useState} from 'react';
 import {useLastValue} from '../../../client/hooks/last-value';
 import {MemberModal} from '../../../client/modals/member';
 import {useTrips} from '../../../client/hooks/circles/[id]/driving/[user]';
+import {Life360CircleMember} from '../../../server/utils/types/circles.types';
 
 export default function CirclePage() {
 	const router = useRouter();
@@ -100,13 +101,13 @@ export default function CirclePage() {
 				<div className="space-y-4">
 					<div className="grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-4">
 						<div>
-							<div className="font-medium text-lg pb-2">Top Driving Speeds</div>
+							<div className="font-medium text-lg pb-2">Driving Speeds</div>
 							<div className="rounded-xl bg-white dark:bg-gray-800 p-4 space-y-6 shadow-sm dark:shadow-neutral-800/25 font-light border border-gray-300 dark:border-gray-700">
 								{circle?.members?.map(member => (
 									<UserDriving
 										key={member.id}
 										circle={circle.id}
-										user={member.id}
+										member={member}
 									/>
 								))}
 							</div>
@@ -123,8 +124,39 @@ export default function CirclePage() {
 	);
 }
 
-function UserDriving({user, circle}: {user: string; circle: string}) {
-	const {data: trips} = useTrips(circle, user);
+function UserDriving({
+	member,
+	circle,
+}: {
+	member: Life360CircleMember;
+	circle: string;
+}) {
+	const {data: trips} = useTrips(circle, member.id);
 
-	return <pre>{JSON.stringify(trips, null, 4)}</pre>;
+	return (
+		<div>
+			<div className="flex items-center space-x-2">
+				<div className="flex-shrink-0 flex items-center">
+					{member.avatar && (
+						<Image
+							className="rounded-full object-cover"
+							src={member.avatar}
+							alt="User"
+							height={36}
+							width={36}
+						/>
+					)}
+				</div>
+
+				<div className="flex-grow">
+					<div className="font-medium">{member.firstName}</div>
+					<div className="text-sm text-gray-600">{member.lastName}</div>
+
+					<div className="flex items-center space-x-1">
+						<p>{trips?.[0]?.topSpeed} MPH</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	);
 }
