@@ -4,7 +4,7 @@ import Image from 'next/image';
 
 import {TiLocationArrowOutline} from 'react-icons/ti';
 import {BsBattery} from 'react-icons/bs';
-import {AiOutlineInfoCircle} from 'react-icons/ai';
+import {AiOutlineInfoCircle, AiFillHeart} from 'react-icons/ai';
 import dayjs from 'dayjs';
 
 export const MemberModal = createModal<{member?: Life360CircleMember}>(

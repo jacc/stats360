@@ -16,8 +16,7 @@ export default function Home() {
 				</div>
 
 				<h2 className="font-light text-lg text-gray-500">
-					Stats360 allows you to view data about your Life360 circles. To get
-					started, login with your Life360 below.
+					Gain insights to your Life360 circles. Sign in to get started.
 				</h2>
 
 				<div className="md:w-1/2 space-y-2">
@@ -55,6 +54,39 @@ export default function Home() {
 					</Link>
 				</div>
 			</form>
+			<div className="text-gray-400 text-center">
+				<pre>
+					made with <span className="text-pink-500">♥</span> by{' '}
+					<a
+						className="text-pink-500 hover:underline underline-offset-2"
+						href="https://twitter.com/laf0nd"
+					>
+						jack
+					</a>{' '}
+					and{' '}
+					<a
+						className="text-pink-500 hover:underline underline-offset-2"
+						href="https://twitter.com/laf0nd"
+					>
+						alistair
+					</a>
+				</pre>
+				<pre>
+					<a
+						className="text-pink-500 hover:underline underline-offset-2"
+						href="/why"
+					>
+						data
+					</a>{' '}
+					-{' '}
+					<a
+						className="text-pink-500 hover:underline underline-offset-2"
+						href="/why"
+					>
+						contact
+					</a>
+				</pre>
+			</div>
 		</main>
 	);
 }
