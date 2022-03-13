@@ -1,10 +1,12 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import Stats360 from '../client/assets/stats360.png';
+import {BackButton} from '../components/back-button';
 
 export default function Why() {
 	return (
 		<main className="mx-auto max-w-3xl py-24 space-y-6">
+			<BackButton />
 			<div className="rounded-xl bg-white dark:bg-gray-800 p-12 space-y-6 shadow-sm dark:shadow-neutral-800/25 font-light border border-gray-300 dark:border-gray-700">
 				<div className="flex items-center space-x-3">
 					<Image src={Stats360} height={48} width={48} alt="Life 360 Logo" />
@@ -25,12 +27,6 @@ export default function Why() {
 					Stats360 is fully open source, and developers are more than welcome to
 					take a look through the source code to see what we do under the hood.
 				</h2>
-
-				<Link href="/">
-					<a className="text-s inline-block text-pink-500 dark:hover:text-pink-500 dark:text-gray-500">
-						Back to home ↗
-					</a>
-				</Link>
 			</div>
 		</main>
 	);
