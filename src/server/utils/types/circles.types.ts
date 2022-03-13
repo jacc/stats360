@@ -32,7 +32,7 @@ export interface Life360CircleMember {
 		troubleshooting: '1' | '0' | null;
 		type: 'lp_w' | null;
 	};
-	location?: any[];
+	location: {battery: string};
 	communications: any[];
 	medical: any;
 	relation: any;
