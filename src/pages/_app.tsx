@@ -5,49 +5,58 @@ import {fetcher} from '../client/fetcher';
 import {AnimatePresence, motion} from 'framer-motion';
 import Script from 'next/script';
 import Link from 'next/link';
-import {useToggle} from 'alistair/hooks';
+import {useThrottle, useToggle} from 'alistair/hooks';
 import {ContactModal} from '../client/modals/contact';
 import {useUser} from '../client/hooks/users/@me';
+import colors from 'tailwindcss/colors';
 
 import '@fontsource/plus-jakarta-sans';
 import 'tailwindcss/tailwind.css';
 import '../styles/index.css';
+import {HashLoader} from 'react-spinners';
 
-export default function App({Component, pageProps, router}: AppProps) {
+function App({Component, pageProps, router}: AppProps) {
 	const [contactOpen, {on, off}] = useToggle();
-	const {error} = useUser();
+	const {data: user, error} = useUser();
+
+	const throttledLoading = useThrottle(!user && !error, 300);
 
 	useEffect(() => {
 		const isDashboardPage = router.pathname.startsWith('/dashboard');
 
+		if (user && !error && router.pathname === '/') {
+			void router.replace('/dashboard');
+			return;
+		}
+
 		if (error && error.code === 401 && isDashboardPage) {
 			void router.push('/');
 		}
-	}, [error, router]);
+	}, [error, user, router]);
 
 	return (
-		<SWRConfig
-			value={{
-				fetcher,
-				refreshInterval: 1000 * 10,
-				dedupingInterval: 1000 * 10,
-				errorRetryInterval: 1000 * 10,
-				focusThrottleInterval: 1000 * 10,
-			}}
-		>
+		<>
 			<ContactModal isOpen={contactOpen} close={off} options={{}} />
 
 			<AnimatePresence exitBeforeEnter>
-				<motion.div
-					key={router.pathname}
-					initial={{opacity: 0}}
-					animate={{opacity: 1}}
-					exit={{opacity: 0}}
-				>
-					<div className="p-1 md:p-6">
+				{throttledLoading ? (
+					<motion.div key="loader" initial={{opacity: 1}} exit={{opacity: 0}}>
+						<main className="mx-auto max-w-3xl py-24 space-y-6">
+							<div className="rounded-xl flex justify-center bg-white dark:bg-gray-800 p-4 md:p-12 space-y-6 shadow-sm dark:shadow-neutral-800/25 font-light border border-gray-300 dark:border-gray-700">
+								<HashLoader color={colors.pink[500]} />
+							</div>
+						</main>
+					</motion.div>
+				) : (
+					<motion.div
+						key={router.pathname}
+						initial={{opacity: 0}}
+						animate={{opacity: 1}}
+						exit={{opacity: 0}}
+					>
 						<Component {...pageProps} />
-					</div>
-				</motion.div>
+					</motion.div>
+				)}
 			</AnimatePresence>
 
 			<footer className="text-gray-400 text-center">
@@ -101,6 +110,22 @@ export default function App({Component, pageProps, router}: AppProps) {
 					gtag('config', \`${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS!}\`); 
 				`}
 			</Script>
+		</>
+	);
+}
+
+export default function Providers(props: AppProps) {
+	return (
+		<SWRConfig
+			value={{
+				fetcher,
+				refreshInterval: 1000 * 10,
+				dedupingInterval: 1000 * 10,
+				errorRetryInterval: 1000 * 10,
+				focusThrottleInterval: 1000 * 10,
+			}}
+		>
+			<App {...props} />
 		</SWRConfig>
 	);
 }
