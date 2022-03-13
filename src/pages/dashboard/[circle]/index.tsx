@@ -69,7 +69,13 @@ export default function CirclePage() {
 												</div>
 
 												<div className="flex-grow flex justify-between">
-													<div className="font-medium">{member.firstName}</div>
+													<p className="block font-medium">
+														<span>{member.firstName}</span>
+
+														<span className="opacity-50">
+															&nbsp; {member.lastName}
+														</span>
+													</p>
 
 													<div className="flex items-center mr-1">
 														<span
