@@ -4,11 +4,12 @@ import Image from 'next/image';
 import {useState} from 'react';
 import {useLastValue} from '../../../client/hooks/last-value';
 import {MemberModal} from '../../../client/modals/member';
-import {useTrips} from '../../../client/hooks/circles/[id]/driving/[user]';
 import {Life360CircleMember} from '../../../server/utils/types/circles.types';
+import {useTrips} from '../../../client/hooks/circles/[id]/driving/[user]';
+import {Life360UserTrip} from '../../../server/utils/types/trip.types';
 import {BackButton} from '../../../components/back-button';
 
-export default function CirclePage() {
+function useThisCircle() {
 	const router = useRouter();
 
 	const {data: circle} = useCircle(
@@ -16,6 +17,13 @@ export default function CirclePage() {
 		// without losing the query param (allowing for page transition anims)
 		useLastValue((router.query.circle as string) ?? null),
 	);
+
+	return circle;
+}
+
+export default function CirclePage() {
+	const circle = useThisCircle();
+	const {data: trips} = useTrips(circle?.id ?? null);
 
 	const [selectedPerson, setSelectedPerson] = useState<string | null>(null);
 	const stableSelectedPerson = useLastValue(selectedPerson);
@@ -115,13 +123,23 @@ export default function CirclePage() {
 						<div>
 							<div className="font-medium text-lg pb-2">Driving Speeds</div>
 							<div className="rounded-xl bg-white dark:bg-gray-800 p-4 space-y-6 shadow-sm dark:shadow-neutral-800/25 font-light border border-gray-300 dark:border-gray-700">
-								{circle?.members?.map(member => (
-									<UserDriving
-										key={member.id}
-										circle={circle.id}
-										member={member}
-									/>
-								))}
+								{trips
+									?.sort((memberA, memberB) => {
+										if (memberA.trips.length === 0) {
+											return -1;
+										}
+
+										if (memberB.trips.length === 0) {
+											return 1;
+										}
+
+										return (
+											memberB.trips[0].topSpeed - memberA.trips[0].topSpeed
+										);
+									})
+									.map(trip => (
+										<UserTrip key={trip.member} {...trip} />
+									))}
 							</div>
 						</div>
 
@@ -136,17 +154,19 @@ export default function CirclePage() {
 	);
 }
 
-function UserDriving({
-	member,
-	circle,
+function UserTrip({
+	trips,
+	member: memberId,
 }: {
-	member: Life360CircleMember;
-	circle: string;
+	trips: Life360UserTrip[];
+	member: Life360CircleMember['id'];
 }) {
-	const {data: trips} = useTrips(circle, member.id);
+	const circle = useThisCircle();
 	const fastestTrip = trips?.[0]?.topSpeed;
 
-	if (!fastestTrip) {
+	const member = circle?.members.find(member => member.id === memberId);
+
+	if (!fastestTrip || !member) {
 		return null;
 	}
 
