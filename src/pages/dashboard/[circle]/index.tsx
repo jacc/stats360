@@ -154,8 +154,8 @@ function UserDriving({
 							className="rounded-full object-cover"
 							src={member.avatar}
 							alt="User"
-							height={36}
-							width={36}
+							height={24}
+							width={24}
 						/>
 					)}
 				</div>
