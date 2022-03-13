@@ -19,6 +19,17 @@ module.exports = {
 				"'Helvetica Neue'",
 				'sans-serif',
 			],
+
+			mono: [
+				'ui-monospace',
+				'SFMono-Regular',
+				'Menlo',
+				'Monaco',
+				'Consolas',
+				'"Liberation Mono"',
+				'"Courier New"',
+				'monospace',
+			],
 		},
 	},
 	plugins: [require('@tailwindcss/forms')],

@@ -59,39 +59,6 @@ export default function DashboardPage() {
 					)}
 				</div>
 			</form>
-			<div className="text-gray-400 text-center">
-				<pre>
-					made with <span className="text-pink-500">♥</span> by{' '}
-					<a
-						className="text-pink-500 hover:underline underline-offset-2"
-						href="https://twitter.com/laf0nd"
-					>
-						jack
-					</a>{' '}
-					and{' '}
-					<a
-						className="text-pink-500 hover:underline underline-offset-2"
-						href="https://twitter.com/laf0nd"
-					>
-						alistair
-					</a>
-				</pre>
-				<pre>
-					<a
-						className="text-pink-500 hover:underline underline-offset-2"
-						href="/why"
-					>
-						data
-					</a>{' '}
-					-{' '}
-					<a
-						className="text-pink-500 hover:underline underline-offset-2"
-						href="/why"
-					>
-						contact
-					</a>
-				</pre>
-			</div>
 		</main>
 	);
 }

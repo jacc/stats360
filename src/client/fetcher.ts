@@ -1,8 +1,8 @@
 import {APIResponse} from 'nextkit';
 import {NextkitClientError} from 'nextkit/client';
 
-export async function fetcher<T>(url: string) {
-	const request = await fetch(url);
+export async function fetcher<T>(url: string, init?: RequestInit) {
+	const request = await fetch(url, init);
 	const body = (await request.json()) as APIResponse<T>;
 
 	if (!body.success) {

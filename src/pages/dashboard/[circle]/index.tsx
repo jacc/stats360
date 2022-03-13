@@ -6,12 +6,15 @@ import {useLastValue} from '../../../client/hooks/last-value';
 import {MemberModal} from '../../../client/modals/member';
 import {useTrips} from '../../../client/hooks/circles/[id]/driving/[user]';
 import {Life360CircleMember} from '../../../server/utils/types/circles.types';
-import {AiOutlineInfoCircle, AiFillHeart} from 'react-icons/ai';
 
 export default function CirclePage() {
 	const router = useRouter();
 
-	const {data: circle} = useCircle((router.query.circle as string) ?? null);
+	const {data: circle} = useCircle(
+		// Store last instance of circle so that we can navigate away
+		// without losing the query param (allowing for page transition anims)
+		useLastValue((router.query.circle as string) ?? null),
+	);
 
 	const [selectedPerson, setSelectedPerson] = useState<string | null>(null);
 	const stableSelectedPerson = useLastValue(selectedPerson);
@@ -126,39 +129,6 @@ export default function CirclePage() {
 						</div>
 					</div>
 				</div>
-			</div>
-			<div className="text-gray-400 text-center">
-				<pre>
-					made with <span className="text-pink-500">♥</span> by{' '}
-					<a
-						className="text-pink-500 hover:underline underline-offset-2"
-						href="https://twitter.com/laf0nd"
-					>
-						jack
-					</a>{' '}
-					and{' '}
-					<a
-						className="text-pink-500 hover:underline underline-offset-2"
-						href="https://twitter.com/laf0nd"
-					>
-						alistair
-					</a>
-				</pre>
-				<pre>
-					<a
-						className="text-pink-500 hover:underline underline-offset-2"
-						href="/why"
-					>
-						data
-					</a>{' '}
-					-{' '}
-					<a
-						className="text-pink-500 hover:underline underline-offset-2"
-						href="/why"
-					>
-						contact
-					</a>
-				</pre>
 			</div>
 		</main>
 	);
