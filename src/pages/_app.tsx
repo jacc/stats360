@@ -48,7 +48,7 @@ export default function App({Component, pageProps, router}: AppProps) {
 					</a>
 				</div>
 
-				<div className="font-mono text-sm">
+				<div className="font-mono text-sm pb-24">
 					<Link href="/why">
 						<a className="text-sm text-pink-500 hover:underline underline-offset-2">
 							data
