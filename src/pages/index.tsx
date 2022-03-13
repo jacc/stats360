@@ -1,19 +1,27 @@
+import type LoginAPI from './api/account/login';
 import Image from 'next/image';
 import Link from 'next/link';
 import {useRouter} from 'next/router';
 import {InferAPIResponse} from 'nextkit';
 import Stats360 from '../client/assets/stats360.png';
 import {fetcher} from '../client/fetcher';
-import type LoginAPI from './api/account/login';
 import {useToggle} from 'alistair/hooks';
 import {Button} from '../client/components/Button';
+import {useModal} from '../client/modals/create';
+import {useState} from 'react';
+import {ErrorModal} from '../client/modals/error';
 
 export default function Home() {
 	const router = useRouter();
 	const [loading, {on, off}] = useToggle();
 
+	const [error] = useState<Error | null>(null);
+	const {props} = useModal(error && {error});
+
 	return (
 		<main className="mx-auto max-w-3xl py-24 space-y-6">
+			<ErrorModal {...props} />
+
 			<form
 				action="/api/account/login"
 				method="POST"

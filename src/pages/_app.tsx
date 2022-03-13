@@ -2,28 +2,28 @@ import React, {useEffect} from 'react';
 import {AppProps} from 'next/app';
 import {SWRConfig} from 'swr';
 import {fetcher} from '../client/fetcher';
-import Head from 'next/head';
 import {AnimatePresence, motion} from 'framer-motion';
 import Script from 'next/script';
-
-import '@fontsource/plus-jakarta-sans';
-import 'tailwindcss/tailwind.css';
-import '../styles/index.css';
 import Link from 'next/link';
 import {useToggle} from 'alistair/hooks';
 import {ContactModal} from '../client/modals/contact';
 import {useUser} from '../client/hooks/users/@me';
-import Router from 'next/router';
+
+import '@fontsource/plus-jakarta-sans';
+import 'tailwindcss/tailwind.css';
+import '../styles/index.css';
 
 export default function App({Component, pageProps, router}: AppProps) {
 	const [contactOpen, {on, off}] = useToggle();
-	const user = useUser();
+	const {error} = useUser();
 
 	useEffect(() => {
-		if (user.error?.code == 401) {
-			Router.push('/');
+		const isDashboardPage = router.pathname.startsWith('/dashboard');
+
+		if (error && error.code === 401 && isDashboardPage) {
+			void router.push('/');
 		}
-	}, []);
+	}, [error, router]);
 
 	return (
 		<SWRConfig
@@ -86,18 +86,20 @@ export default function App({Component, pageProps, router}: AppProps) {
 					</button>
 				</div>
 			</footer>
+
 			<Script
-				src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}
+				src={`https://www.googletagmanager.com/gtag/js?id=${process.env
+					.NEXT_PUBLIC_GOOGLE_ANALYTICS!}`}
 				strategy="afterInteractive"
 			/>
 			<Script id="google-analytics" strategy="afterInteractive">
 				{`
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){window.dataLayer.push(arguments);}
-          gtag('js', new Date());
+					window.dataLayer = window.dataLayer || [];
+					function gtag(){window.dataLayer.push(arguments);}
+					gtag('js', new Date());
 
-          gtag('config', \`${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}\`);
-        `}
+					gtag('config', \`${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS!}\`); 
+				`}
 			</Script>
 		</SWRConfig>
 	);
