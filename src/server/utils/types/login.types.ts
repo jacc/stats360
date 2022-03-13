@@ -1,8 +1,10 @@
+import {Life360User} from './users.types';
+
 export interface Life360LoginResponse {
 	access_token: string;
 	token_type: string;
 	onboarding: number;
-	user: User;
+	user: Life360User;
 	cobranding: any[];
 	promotions: any[];
 	state: any;
@@ -19,14 +21,14 @@ export interface Life360LoginUser {
 	language: string;
 	created: string;
 	avatarAuthor: any;
-	settings: Settings;
-	communications: Communication[];
+	settings: Life360LoginSettings;
+	communications: Life360LoginCommunication[];
 	cobranding: any[];
 }
 
 export interface Life360LoginSettings {
-	map: Map;
-	alerts: Alerts;
+	map: Life360LoginMap;
+	alerts: Life360LoginAlerts;
 	zendrive: any;
 	locale: string;
 	unitOfMeasure: string;
