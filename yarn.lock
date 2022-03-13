@@ -898,6 +898,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"class-variance-authority@npm:^0.1.0":
+  version: 0.1.0
+  resolution: "class-variance-authority@npm:0.1.0"
+  checksum: 83373e8a91d3a245c3c710a1fde15d0355e49a7c54972fe17c0ebb877dd8783c574b8cef4ef57fd079f9e13d85b74898921972d355bfb86f17eedbbfffadc3ae
+  languageName: node
+  linkType: hard
+
 "clean-stack@npm:^2.0.0":
   version: 2.2.0
   resolution: "clean-stack@npm:2.2.0"
@@ -3394,6 +3401,7 @@ __metadata:
     "@upstash/redis": ^1.0.0-alpha.7
     alistair: ^1.4.0
     autoprefixer: ^10.4.2
+    class-variance-authority: ^0.1.0
     cookie: ^0.4.2
     dayjs: ^1.10.8
     envsafe: ^2.0.3

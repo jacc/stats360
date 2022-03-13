@@ -6,6 +6,7 @@ import Stats360 from '../client/assets/stats360.png';
 import {fetcher} from '../client/fetcher';
 import type LoginAPI from './api/account/login';
 import {useToggle} from 'alistair/hooks';
+import {Button} from '../client/components/Button';
 
 export default function Home() {
 	const router = useRouter();
@@ -72,12 +73,13 @@ export default function Home() {
 				</div>
 
 				<div>
-					<button
+					<Button
 						className="px-7 py-1.5 rounded-full bg-pink-500/25 text-pink-600 dark:text-pink-500"
 						type="submit"
+						loading={loading}
 					>
 						Login
-					</button>
+					</Button>
 				</div>
 
 				<div>
