@@ -25,7 +25,7 @@ export default function CirclePage() {
 								.filter(member => member.issues.disconnected === '0')
 								.map(member => (
 									<li key={member.id}>
-										<div className="flex items-center space-x-3 rounded-md p-2 border border-gray-200/25 bg-gray-100">
+										<div className="flex items-center space-x-3 rounded-md p-2 border border-gray-200/25 bg-gray-100 dark:bg-gray-900/50 dark:border-gray-600/50">
 											<div className="flex-shrink-0 flex items-center">
 												{member.avatar && (
 													<Image
@@ -41,7 +41,7 @@ export default function CirclePage() {
 											<div className="flex-grow flex justify-between">
 												<div className="font-medium">{member.firstName}</div>
 
-												<div className="flex items-center">
+												<div className="flex items-center mr-1">
 													<span className="relative block w-2 h-5 rounded-sm overflow-hidden border-green-500 border">
 														<span
 															className="w-2 block bg-green-500 absolute bottom-0"
@@ -88,6 +88,4 @@ export default function CirclePage() {
 			</div>
 		</main>
 	);
-
-	// return <pre>{JSON.stringify(circle, null, 2)}</pre>;
 }
