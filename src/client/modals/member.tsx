@@ -41,8 +41,13 @@ export const MemberModal = createModal<{member?: Life360CircleMember}>(
 							</div>
 							<p className="text-xs">
 								{!member.location.name ? 'Unknown' : member.location.name} since{' '}
-								{dayjs.unix(member.location.startTimestamp).format('MMMM DD')}{' '}
-								at {dayjs.unix(member.location.startTimestamp).format('h:mma')}
+								{dayjs
+									.unix(parseInt(member.location.startTimestamp))
+									.format('MMMM DD')}{' '}
+								at{' '}
+								{dayjs
+									.unix(parseInt(member.location.startTimestamp))
+									.format('h:mma')}
 							</p>
 						</div>
 						<div>

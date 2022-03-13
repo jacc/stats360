@@ -1,3 +1,5 @@
+import {Life360CircleLocation} from './location.types';
+
 export interface Life360Circle {
 	id: string;
 	name: string;
@@ -32,7 +34,7 @@ export interface Life360CircleMember {
 		troubleshooting: '1' | '0' | null;
 		type: 'lp_w' | null;
 	};
-	location: {battery: string};
+	location: Life360CircleLocation;
 	communications: any[];
 	medical: any;
 	relation: any;
