@@ -38,7 +38,7 @@ export default function CirclePage() {
 					<div className="font-medium text-lg">Members</div>
 
 					<div className="rounded-xl bg-white dark:bg-gray-800 p-4 space-y-6 shadow-sm dark:shadow-neutral-800/25 font-light border border-gray-300 dark:border-gray-700">
-						<div className="grid grid-cols-2 gap-4">
+						<div className="grid md:grid-cols-2 gap-4">
 							{circle?.members
 								.filter(member => member.issues.disconnected === '0')
 								.map(member => {
@@ -53,7 +53,7 @@ export default function CirclePage() {
 												setSelectedPerson(member.id);
 											}}
 										>
-											<div className="flex items-center space-x-3 rounded-md p-2 border border-gray-200/25 bg-gray-100 dark:bg-gray-900/50 dark:border-gray-600/50">
+											<div className="flex items-center space-x-3 rounded-md p-4 border border-gray-200/25 bg-gray-100 dark:bg-gray-900/50 dark:border-gray-600/50">
 												<div className="flex-shrink-0 flex items-center">
 													{member.avatar && (
 														<Image
