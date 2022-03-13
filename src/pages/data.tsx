@@ -26,12 +26,6 @@ export default function Why() {
 				</p>
 
 				<p className="font-light text-lg text-gray-500">
-					Stats360 will eventually be fully open source, developers will be more
-					than welcome to take a look through the source code to see what we do
-					under the hood.
-				</p>
-
-				<p className="font-light text-lg text-gray-500">
 					A more in depth explanation of how we use your data can be provided if
 					you contact us (see footer of page).
 				</p>
