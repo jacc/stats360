@@ -11,6 +11,8 @@ import {BackButton} from '../../../components/back-button';
 import {AiOutlineCrown} from 'react-icons/ai';
 import ordinal from 'ordinal';
 import defaultAvatar from '../../../client/assets/default-avatar.png';
+import {useToggle} from 'alistair/hooks';
+import {DriverModal} from '../../../client/modals/driver';
 
 function useThisCircle() {
 	const router = useRouter();
@@ -178,6 +180,7 @@ function UserTrip({
 	member: Life360CircleMember['id'];
 	position: number;
 }) {
+	const [modalOpen, {on, off}] = useToggle();
 	const circle = useThisCircle();
 
 	const member = circle?.members.find(member => member.id === memberId);
@@ -193,7 +196,13 @@ function UserTrip({
 	};
 
 	return (
-		<div className="flex items-center space-x-2 rounded-md pl-3 p-4 border border-gray-200/25 bg-gray-100 dark:bg-gray-900/50 dark:border-gray-600/50">
+		<button
+			type="button"
+			className="w-full flex items-center space-x-2 rounded-md pl-3 p-4 border border-gray-200/25 bg-gray-100 dark:bg-gray-900/50 dark:border-gray-600/50"
+			onClick={on}
+		>
+			<DriverModal isOpen={modalOpen} close={off} options={{trips}} />
+
 			<div className="flex w-full items-center space-x-2">
 				<div className="flex-shrink-0 flex items-center">
 					{member && (
@@ -237,7 +246,7 @@ function UserTrip({
 					</div>
 				</div>
 			</div>
-		</div>
+		</button>
 	);
 }
 
