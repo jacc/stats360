@@ -60,6 +60,7 @@ export default function CirclePage() {
 					<div className="rounded-xl bg-white dark:bg-gray-800 md:p-4 space-y-6 shadow-sm dark:shadow-neutral-800/25 font-light md:border border-gray-300 dark:border-gray-700">
 						<div className="grid md:grid-cols-2 gap-2">
 							{circle?.members
+								.filter(member => member.location)
 								.filter(member => member.issues.disconnected === '0')
 								.map(member => {
 									const battery = parseInt(member.location.battery, 10);
