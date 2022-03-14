@@ -8,7 +8,7 @@ import {Life360CircleMember} from '../../../server/utils/types/circles.types';
 import {useTrips} from '../../../client/hooks/circles/[id]/driving/[user]';
 import {Life360UserTrip} from '../../../server/utils/types/trip.types';
 import {BackButton} from '../../../components/back-button';
-import {AiOutlineCrown} from 'react-icons/ai';
+import {AiOutlineCrown, AiOutlineQuestion} from 'react-icons/ai';
 import ordinal from 'ordinal';
 import defaultAvatar from '../../../client/assets/default-avatar.png';
 import {useToggle} from 'alistair/hooks';
@@ -57,9 +57,8 @@ export default function CirclePage() {
 				</div>
 
 				<div className="space-y-4">
-					<div className="font-medium text-lg">Members</div>
-
-					<div className="rounded-xl bg-white dark:bg-gray-800 md:p-4 space-y-6 shadow-sm dark:shadow-neutral-800/25 font-light md:border border-gray-300 dark:border-gray-700">
+					<div className="rounded-xl bg-white dark:bg-gray-800 md:p-4 space-y-2 shadow-sm dark:shadow-neutral-800/25 font-light md:border border-gray-300 dark:border-gray-700">
+						<div className="font-medium text-lg">Members</div>
 						<div className="grid md:grid-cols-2 gap-2">
 							{circle?.members
 								.filter(member => member.location)
@@ -127,42 +126,47 @@ export default function CirclePage() {
 
 				<div className="space-y-4">
 					<div className="grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-4">
-						<div>
-							<div className="font-medium text-lg pb-2">Recent Top Speeds</div>
-							<div className="rounded-xl bg-white dark:bg-gray-800 md:p-4 space-y-2 shadow-sm dark:shadow-neutral-800/25 font-light md:border border-gray-300 dark:border-gray-700">
-								{trips
-									?.filter(trip => trip.trips.length)
-									.sort((memberA, memberB) => {
-										if (memberA.trips.length === 0) {
-											return -1;
-										}
-
-										if (memberB.trips.length === 0) {
-											return 1;
-										}
-
-										return (
-											memberB.trips[0].topSpeed - memberA.trips[0].topSpeed
-										);
-									})
-									.map((trip, index) => (
-										<UserSpeeds key={trip.member} position={index} {...trip} />
-									))}
+						<div className="rounded-xl bg-white dark:bg-gray-800 md:p-4 space-y-2 shadow-sm dark:shadow-neutral-800/25 font-light md:border border-gray-300 dark:border-gray-700">
+							<div className="flex justify-between items-center pb-2">
+								<div className="font-medium text-lg">Recent Top Speeds</div>
+								<div className="bg-white dark:bg-gray-800 hover:bg-pink-500/5 hover:text-pink-500 hover:border-pink-500/25 dark:hover:bg-pink-900/10 transition-all duration-150 group inline-block p-1 justify-between border rounded-lg dark:bg-gray-900/50 dark:border-gray-700">
+									<AiOutlineQuestion size={20} />
+								</div>
 							</div>
+
+							{trips
+								?.filter(trip => trip.trips.length)
+								.sort((memberA, memberB) => {
+									if (memberA.trips.length === 0) {
+										return -1;
+									}
+
+									if (memberB.trips.length === 0) {
+										return 1;
+									}
+
+									return memberB.trips[0].topSpeed - memberA.trips[0].topSpeed;
+								})
+								.map((trip, index) => (
+									<UserSpeeds key={trip.member} position={index} {...trip} />
+								))}
 						</div>
-						<div>
-							<div className="font-medium text-lg pb-2">Worst Drivers</div>
-							<div className="rounded-xl bg-white dark:bg-gray-800 md:p-4 space-y-2 shadow-sm dark:shadow-neutral-800/25 font-light md:border border-gray-300 dark:border-gray-700">
-								{trips
-									?.sort(
-										(memberA, memberB) =>
-											memberA.averageTripScore - memberB.averageTripScore,
-									)
-									.filter(trip => trip.trips.length)
-									.map((trip, index) => (
-										<UserTrip key={trip.member} {...trip} position={index} />
-									))}
+						<div className="rounded-xl bg-white dark:bg-gray-800 md:p-4 space-y-2 shadow-sm dark:shadow-neutral-800/25 font-light md:border border-gray-300 dark:border-gray-700">
+							<div className="flex justify-between items-center pb-2">
+								<div className="font-medium text-lg">Worst Drivers</div>
+								<div className="bg-white dark:bg-gray-800 hover:bg-pink-500/5 hover:text-pink-500 hover:border-pink-500/25 dark:hover:bg-pink-900/10 transition-all duration-150 group inline-block p-1 justify-between border rounded-lg dark:bg-gray-900/50 dark:border-gray-700">
+									<AiOutlineQuestion size={20} />
+								</div>
 							</div>
+							{trips
+								?.sort(
+									(memberA, memberB) =>
+										memberA.averageTripScore - memberB.averageTripScore,
+								)
+								.filter(trip => trip.trips.length)
+								.map((trip, index) => (
+									<UserTrip key={trip.member} {...trip} position={index} />
+								))}
 						</div>
 					</div>
 				</div>
