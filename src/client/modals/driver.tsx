@@ -38,11 +38,13 @@ export const DriverModal = createModal<{trips: Option}>(props => {
 	const {trips} = props.options;
 
 	return {
-		title: 'Driver',
+		title: 'Driver score',
 		content: (
 			<div className="flex flex-col space-y-2">
-				<p>Stats from most recent {trips.length} trips</p>
-				<p>
+				<p className="font-light text-base text-gray-500">
+					Stats from most recent {trips.length} trips - coming soon!
+				</p>
+				{/* <p>
 					Format is{' '}
 					<code className="text-pink-500 bg-pink-500/25">
 						&lt;avg&gt;/&lt;max&gt;/&lt;weight&gt;
@@ -113,7 +115,7 @@ export const DriverModal = createModal<{trips: Option}>(props => {
 							</tr>
 						</tbody>
 					</table>
-				</div>
+				</div> */}
 			</div>
 		),
 	};
