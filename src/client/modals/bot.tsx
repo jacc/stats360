@@ -12,7 +12,7 @@ export const BotModal = createModal(() => ({
 			</p>
 			<div className="space-x-2">
 				<a
-					href="https://twitter.com/alistaiiiir"
+					href="https://discord.gg/Nt67yFFFQF"
 					target="_blank"
 					rel="noopener noreferrer"
 					className="inline-block bg-purple-500/25 text-purple-500 px-3 py-1.5 rounded-full"
