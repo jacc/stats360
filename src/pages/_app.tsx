@@ -91,7 +91,7 @@ function App({Component, pageProps, router}: AppProps) {
 					</a>
 				</div>
 
-				<div className="font-mono text-sm pb-24">
+				<div className=" text-sm pb-24">
 					<Link href="/data">
 						<a className="text-sm text-pink-500 hover:underline underline-offset-2">
 							data
@@ -107,6 +107,14 @@ function App({Component, pageProps, router}: AppProps) {
 					>
 						contact
 					</button>
+					<span>—</span>
+					&nbsp;
+					<a
+						href="https://discord.gg/Nt67yFFFQF"
+						className="text-sm text-pink-500 hover:underline underline-offset-2"
+					>
+						discord
+					</a>
 				</div>
 			</footer>
 
