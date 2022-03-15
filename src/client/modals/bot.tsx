@@ -1,6 +1,5 @@
 import {createModal} from './create';
-import {SiTwitter} from 'react-icons/si';
-import {FaDiscord} from 'react-icons/fa';
+import {CgCommunity} from 'react-icons/cg';
 
 export const BotModal = createModal(() => ({
 	title: 'Discord Integration',
@@ -17,7 +16,7 @@ export const BotModal = createModal(() => ({
 					rel="noopener noreferrer"
 					className="inline-block bg-purple-500/25 text-purple-500 px-3 py-1.5 rounded-full"
 				>
-					<FaDiscord className="inline-block" />
+					<CgCommunity className="inline-block" />
 					&nbsp; Stats360 Discord server
 				</a>
 			</div>
