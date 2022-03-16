@@ -14,12 +14,21 @@ import '@fontsource/plus-jakarta-sans';
 import 'tailwindcss/tailwind.css';
 import '../styles/index.css';
 import {HashLoader} from 'react-spinners';
+import {useJSONLocalStorage} from '../client/hooks/local-storage';
+import {z} from 'zod';
+import {DisclaimerModal} from '../client/modals/disclaimer';
 
 function App({Component, pageProps, router}: AppProps) {
 	const [contactOpen, {on, off}] = useToggle();
 	const {data: user, error} = useUser();
+	const [disclaimerOpen, disclaimerControls] = useToggle();
 
 	const throttledLoading = useThrottle(!user && !error, 300);
+
+	const disclaimerState = useJSONLocalStorage(
+		'disclaimer',
+		z.object({accepted: z.boolean()}),
+	);
 
 	useEffect(() => {
 		const isDashboardPage = router.pathname.startsWith('/dashboard');
@@ -33,6 +42,20 @@ function App({Component, pageProps, router}: AppProps) {
 			void router.push('/');
 		}
 	}, [error, user, router]);
+
+	useEffect(() => {
+		const isBrowser = typeof window !== 'undefined';
+
+		if (!isBrowser) {
+			return;
+		}
+
+		const accepted = disclaimerState.get()?.accepted ?? false;
+
+		if (!accepted) {
+			disclaimerControls.on();
+		}
+	}, [disclaimerState, disclaimerControls]);
 
 	return (
 		<>
@@ -50,6 +73,16 @@ function App({Component, pageProps, router}: AppProps) {
 					content="https://stats360.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fstats360.4b04b917.png&w=96&q=75"
 				/>
 			</Head>
+
+			<DisclaimerModal
+				isOpen={disclaimerOpen}
+				close={() => {
+					disclaimerState.set({accepted: true});
+					disclaimerControls.off();
+				}}
+				options={{}}
+			/>
+
 			<ContactModal isOpen={contactOpen} close={off} options={{}} />
 
 			<AnimatePresence exitBeforeEnter>
@@ -91,7 +124,7 @@ function App({Component, pageProps, router}: AppProps) {
 					</a>
 				</div>
 
-				<div className="font-mono text-sm pb-24">
+				<div className=" text-sm pb-24">
 					<Link href="/data">
 						<a className="text-sm text-pink-500 hover:underline underline-offset-2">
 							data
@@ -107,6 +140,14 @@ function App({Component, pageProps, router}: AppProps) {
 					>
 						contact
 					</button>
+					<span>—</span>
+					&nbsp;
+					<a
+						href="https://discord.gg/Nt67yFFFQF"
+						className="text-sm text-pink-500 hover:underline underline-offset-2"
+					>
+						discord
+					</a>
 				</div>
 			</footer>
 

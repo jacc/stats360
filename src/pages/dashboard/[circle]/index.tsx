@@ -13,6 +13,8 @@ import ordinal from 'ordinal';
 import defaultAvatar from '../../../client/assets/default-avatar.png';
 import {useToggle} from 'alistair/hooks';
 import {DriverModal} from '../../../client/modals/driver';
+import {AlgoModel} from '../../../client/modals/driver-score';
+import {SpeedsModel} from '../../../client/modals/top-speeds';
 
 function useThisCircle() {
 	const router = useRouter();
@@ -29,6 +31,9 @@ function useThisCircle() {
 export default function CirclePage() {
 	const circle = useThisCircle();
 	const {data: trips} = useTrips(circle?.id ?? null);
+
+	const [algoOpen, {on: algoOn, off: algoOff}] = useToggle();
+	const [speedOpen, {on: speedOn, off: speedOff}] = useToggle();
 
 	const [selectedPersonId, setSelectedPerson] = useState<string | null>(null);
 
@@ -48,6 +53,9 @@ export default function CirclePage() {
 					setSelectedPerson(null);
 				}}
 			/>
+
+			<AlgoModel isOpen={algoOpen} close={algoOff} options={{}} />
+			<SpeedsModel isOpen={speedOpen} close={speedOff} options={{}} />
 
 			<div className="rounded-xl bg-white dark:bg-gray-800 p-4 md:p-12 space-y-6 shadow-sm dark:shadow-neutral-800/25 font-light border border-gray-300 dark:border-gray-700">
 				<div className="flex items-center space-x-3">
@@ -129,9 +137,13 @@ export default function CirclePage() {
 						<div className="rounded-xl bg-white dark:bg-gray-800 md:p-4 space-y-2 shadow-sm dark:shadow-neutral-800/25 font-light md:border border-gray-300 dark:border-gray-700">
 							<div className="flex justify-between items-center pb-2">
 								<div className="font-medium text-lg">Recent Top Speeds</div>
-								<div className="bg-white dark:bg-gray-800 hover:bg-pink-500/5 hover:text-pink-500 hover:border-pink-500/25 dark:hover:bg-pink-900/10 transition-all duration-150 group inline-block p-1 justify-between border rounded-lg dark:bg-gray-900/50 dark:border-gray-700">
+								<button
+									type="button"
+									className="bg-white dark:bg-gray-800 hover:bg-pink-500/5 hover:text-pink-500 hover:border-pink-500/25 dark:hover:bg-pink-900/10 transition-all duration-150 group inline-block p-1 justify-between border rounded-lg dark:bg-gray-900/50 dark:border-gray-700"
+									onClick={speedOn}
+								>
 									<AiOutlineQuestion size={20} />
-								</div>
+								</button>
 							</div>
 
 							{trips
@@ -154,9 +166,13 @@ export default function CirclePage() {
 						<div className="rounded-xl bg-white dark:bg-gray-800 md:p-4 space-y-2 shadow-sm dark:shadow-neutral-800/25 font-light md:border border-gray-300 dark:border-gray-700">
 							<div className="flex justify-between items-center pb-2">
 								<div className="font-medium text-lg">Worst Drivers</div>
-								<div className="bg-white dark:bg-gray-800 hover:bg-pink-500/5 hover:text-pink-500 hover:border-pink-500/25 dark:hover:bg-pink-900/10 transition-all duration-150 group inline-block p-1 justify-between border rounded-lg dark:bg-gray-900/50 dark:border-gray-700">
+								<button
+									type="button"
+									className="bg-white dark:bg-gray-800 hover:bg-pink-500/5 hover:text-pink-500 hover:border-pink-500/25 dark:hover:bg-pink-900/10 transition-all duration-150 group inline-block p-1 justify-between border rounded-lg dark:bg-gray-900/50 dark:border-gray-700"
+									onClick={algoOn}
+								>
 									<AiOutlineQuestion size={20} />
-								</div>
+								</button>
 							</div>
 							{trips
 								?.sort(

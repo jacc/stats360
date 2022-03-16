@@ -137,75 +137,8 @@ export const DriverModal = createModal<{trips: Option}>(props => {
 							</p>
 						</div>
 					</div>
-				</div>
+				</div>		
 			</div>
-
-			// 	<div className="overflow-x-auto overflow-y-hidden h-full">
-			// 		<table
-			// 			style={{
-			// 				margin: '0 -20px',
-			// 				borderSpacing: '20px 0',
-			// 				borderCollapse: 'separate',
-			// 			}}
-			// 		>
-			// 			<thead>
-			// 				<tr>
-			// 					<th className="w-full whitespace-nowrap">Distractions</th>
-			// 					<th className="w-full whitespace-nowrap">Hard Brakes</th>
-			// 					<th className="w-full whitespace-nowrap">Speeding</th>
-			// 					<th className="w-full whitespace-nowrap">Rapid Acceleration</th>
-			// 					<th className="w-full whitespace-nowrap">Crashes 💀</th>
-			// 					<th className="w-full whitespace-nowrap">Duration (mins)</th>
-			// 				</tr>
-			// 			</thead>
-
-			// 			<tbody>
-			// 				<tr>
-			// 					<td className="text-4xl">
-			// 						{result(
-			// 							trips.map(trip => trip.distractedCount),
-			// 							'distractedCount',
-			// 						)}
-			// 					</td>
-
-			// 					<td className="text-4xl">
-			// 						{result(
-			// 							trips.map(trip => trip.hardBrakingCount),
-			// 							'hardBrakingCount',
-			// 						)}
-			// 					</td>
-
-			// 					<td className="text-4xl">
-			// 						{result(
-			// 							trips.map(trip => trip.speedingCount),
-			// 							'speedingCount',
-			// 						)}
-			// 					</td>
-
-			// 					<td className="text-4xl">
-			// 						{result(
-			// 							trips.map(trip => trip.rapidAccelerationCount),
-			// 							'rapidAccelerationCount',
-			// 						)}
-			// 					</td>
-
-			// 					<td className="text-4xl">
-			// 						{result(
-			// 							trips.map(trip => trip.crashCount),
-			// 							'crashCount',
-			// 						)}
-			// 					</td>
-
-			// 					<td className="text-4xl">
-			// 						{Math.floor(average(trips.map(trip => trip.duration)) / 60)}
-			// 						<span className="text-gray-500">/</span>
-			// 						{Math.floor(highest(trips.map(trip => trip.duration)) / 60)}
-			// 					</td>
-			// 				</tr>
-			// 			</tbody>
-			// 		</table>
-			// 	</div>
-			// </div>
 		),
 	};
 });
