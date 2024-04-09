@@ -1,0 +1,1 @@
+export const SETUP_SELECT_MENU = 'SETUP_SELECT_MENU';
